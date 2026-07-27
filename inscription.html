@@ -16,6 +16,7 @@
     --texte: #171717;
     --texte-clair: #6b6862;
   }
+  html{ font-size: 14px; }
   *{ margin:0; padding:0; box-sizing:border-box; }
   body{
     background: var(--fond);
@@ -27,32 +28,34 @@
 
   header{
     display:flex; justify-content:space-between; align-items:center;
-    padding: 20px 6%;
+    padding: 16px 6%;
     background: var(--noir);
+    flex-wrap: wrap;
+    gap: 10px;
   }
-  .logo{ font-family:'Archivo Black', sans-serif; font-size: 1.3rem; color:#fff; }
+  .logo{ font-family:'Archivo Black', sans-serif; font-size: 1.05rem; color:#fff; }
   .logo span{ color: var(--rouge); }
-  nav ul{ display:flex; gap: 30px; list-style:none; }
+  nav ul{ display:flex; gap: 18px; list-style:none; flex-wrap: wrap; }
   nav a{
-    font-size: 0.9rem; font-weight:600; text-transform: uppercase;
-    letter-spacing: 0.06em; color: rgba(255,255,255,0.8);
+    font-size: 0.76rem; font-weight:600; text-transform: uppercase;
+    letter-spacing: 0.04em; color: rgba(255,255,255,0.8);
   }
   nav a:hover{ color: var(--rouge); }
 
   main{
     max-width: 480px;
     margin: 0 auto;
-    padding: 60px 6% 100px;
+    padding: 40px 6% 80px;
   }
 
   /* Indicateur des 2 étapes */
   .etapes-nav{
     display:flex;
     align-items:center;
-    gap: 10px;
-    margin-bottom: 34px;
+    gap: 8px;
+    margin-bottom: 28px;
     font-family:'IBM Plex Mono', monospace;
-    font-size: 0.78rem;
+    font-size: 0.7rem;
   }
   .etapes-nav .pastille{
     width: 26px; height: 26px;
@@ -68,16 +71,17 @@
 
   h1{
     font-family:'Archivo Black', sans-serif;
-    font-size: 1.6rem;
-    margin-bottom: 8px;
+    font-size: 1.3rem;
+    line-height: 1.25;
+    margin-bottom: 6px;
   }
-  .sous-titre{ color: var(--texte-clair); font-size: 0.92rem; margin-bottom: 28px; }
+  .sous-titre{ color: var(--texte-clair); font-size: 0.82rem; margin-bottom: 24px; }
 
   .carte-form{
     background: var(--carte);
     border: 1px solid rgba(17,17,17,0.08);
     border-radius: 20px;
-    padding: 30px 26px;
+    padding: 24px 20px;
     box-shadow: 0 2px 14px rgba(17,17,17,0.05);
   }
 

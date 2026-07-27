@@ -15,6 +15,7 @@
     --texte: #171717;
     --texte-clair: #6b6862;
   }
+  html{ font-size: 14px; }
   *{ margin:0; padding:0; box-sizing:border-box; }
   body{
     background: var(--fond);
@@ -30,28 +31,31 @@
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding: 22px 6%;
+    padding: 16px 6%;
     background: var(--noir);
+    flex-wrap: wrap;
+    gap: 10px;
   }
   .logo{
     font-family:'Archivo Black', sans-serif;
-    font-size: 1.3rem;
+    font-size: 1.05rem;
     color: #fff;
   }
   .logo span{ color: var(--rouge); }
-  .header-droite{ display:flex; align-items:center; gap: 30px; }
-  nav ul{ display:flex; gap: 30px; list-style:none; }
+  .header-droite{ display:flex; align-items:center; gap: 18px; flex-wrap: wrap; }
+  nav ul{ display:flex; gap: 18px; list-style:none; flex-wrap: wrap; }
   nav a{
-    font-size: 0.9rem; font-weight:600; text-transform: uppercase;
-    letter-spacing: 0.06em; color: rgba(255,255,255,0.8);
+    font-size: 0.76rem; font-weight:600; text-transform: uppercase;
+    letter-spacing: 0.04em; color: rgba(255,255,255,0.8);
     transition: color .2s;
   }
   nav a:hover{ color: var(--rouge); }
   .btn-connexion{
-    font-size: 0.85rem; font-weight:700; color: #fff;
+    font-size: 0.76rem; font-weight:700; color: #fff;
     border: 1px solid rgba(255,255,255,0.35);
-    padding: 8px 18px; border-radius: 999px;
+    padding: 7px 16px; border-radius: 999px;
     transition: background .2s, border-color .2s;
+    white-space: nowrap;
   }
   .btn-connexion:hover{ background: var(--rouge); border-color: var(--rouge); }
 
@@ -62,41 +66,43 @@
     align-items:center;
     justify-content:center;
     text-align:center;
-    padding: 60px 6%;
+    padding: 50px 6%;
   }
 
   .eyebrow{
     font-family:'IBM Plex Mono', monospace;
     color: var(--rouge);
-    font-size: 0.8rem;
-    letter-spacing: 0.15em;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    margin-bottom: 18px;
+    margin-bottom: 14px;
   }
 
   h1{
     font-family:'Archivo Black', sans-serif;
-    font-size: clamp(1.8rem, 5vw, 2.8rem);
-    margin-bottom: 16px;
+    font-size: clamp(1.4rem, 6vw, 2rem);
+    line-height: 1.25;
+    margin-bottom: 14px;
   }
   h1 em{ font-style:normal; color: var(--rouge); }
 
   main p{
     color: var(--texte-clair);
+    font-size: 0.88rem;
     max-width: 460px;
-    margin-bottom: 40px;
+    margin-bottom: 32px;
   }
 
   /* Bouton WhatsApp — signature : "bulle" qui reprend la forme d'un message de chat */
   .whatsapp-btn{
     display:inline-flex;
     align-items:center;
-    gap: 14px;
+    gap: 12px;
     background: var(--rouge);
     color: #fff;
     font-weight:700;
-    font-size: 1.05rem;
-    padding: 18px 32px;
+    font-size: 0.9rem;
+    padding: 15px 26px;
     border-radius: 999px 999px 999px 8px;
     transition: transform .2s, background .2s;
   }
@@ -104,21 +110,21 @@
     background: var(--rouge-sombre);
     transform: translateY(-3px);
   }
-  .whatsapp-btn svg{ width: 24px; height: 24px; fill: #fff; }
+  .whatsapp-btn svg{ width: 20px; height: 20px; fill: #fff; }
 
   .note{
-    margin-top: 26px;
+    margin-top: 22px;
     font-family:'IBM Plex Mono', monospace;
-    font-size: 0.78rem;
+    font-size: 0.7rem;
     color: var(--texte-clair);
   }
 
   footer{
     text-align:center;
-    padding: 24px 6%;
+    padding: 20px 6%;
     background: var(--noir);
     color: rgba(255,255,255,0.5);
-    font-size: 0.8rem;
+    font-size: 0.72rem;
   }
 </style>
 </head>
