@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>G∆MYs Academy — Inscription</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rouge: #C81E2B;
+    --rouge-sombre: #7A0F1A;
+    --noir: #111111;
+    --fond: #F7F5F0;
+    --carte: #FFFFFF;
+    --texte: #171717;
+    --texte-clair: #6b6862;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{
+    background: var(--fond);
+    color: var(--texte);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
+  }
+  a{ color:inherit; text-decoration:none; }
+
+  header{
+    display:flex; justify-content:space-between; align-items:center;
+    padding: 20px 6%;
+    background: var(--noir);
+  }
+  .logo{ font-family:'Archivo Black', sans-serif; font-size: 1.3rem; color:#fff; }
+  .logo span{ color: var(--rouge); }
+  nav ul{ display:flex; gap: 30px; list-style:none; }
+  nav a{
+    font-size: 0.9rem; font-weight:600; text-transform: uppercase;
+    letter-spacing: 0.06em; color: rgba(255,255,255,0.8);
+  }
+  nav a:hover{ color: var(--rouge); }
+
+  main{
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 60px 6% 100px;
+  }
+
+  /* Indicateur des 2 étapes */
+  .etapes-nav{
+    display:flex;
+    align-items:center;
+    gap: 10px;
+    margin-bottom: 34px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+  }
+  .etapes-nav .pastille{
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    display:flex; align-items:center; justify-content:center;
+    background: rgba(17,17,17,0.08);
+    color: var(--texte-clair);
+  }
+  .etapes-nav .pastille.active{ background: var(--rouge); color:#fff; }
+  .etapes-nav .trait{ flex:1; height:1px; background: rgba(17,17,17,0.15); }
+  .etapes-nav span.label{ color: var(--texte-clair); }
+  .etapes-nav span.label.active{ color: var(--texte); font-weight:700; }
+
+  h1{
+    font-family:'Archivo Black', sans-serif;
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+  }
+  .sous-titre{ color: var(--texte-clair); font-size: 0.92rem; margin-bottom: 28px; }
+
+  .carte-form{
+    background: var(--carte);
+    border: 1px solid rgba(17,17,17,0.08);
+    border-radius: 20px;
+    padding: 30px 26px;
+    box-shadow: 0 2px 14px rgba(17,17,17,0.05);
+  }
+
+  .champ{ margin-bottom: 18px; }
+  .champ label{
+    display:block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--texte-clair); margin-bottom: 8px;
+  }
+  .champ input, .champ select{
+    width:100%;
+    background: var(--fond);
+    border: 1px solid rgba(17,17,17,0.15);
+    color: var(--texte);
+    font-family:'Inter', sans-serif;
+    font-size: 0.95rem;
+    padding: 13px 14px;
+    border-radius: 10px;
+    outline:none;
+    transition: border-color .2s;
+  }
+  .champ input:focus, .champ select:focus{ border-color: var(--rouge); }
+
+  .btn-principal{
+    width:100%;
+    background: var(--rouge); color:#fff;
+    font-family:'Inter', sans-serif; font-weight:700; font-size: 1rem;
+    padding: 15px; border:none; border-radius: 999px; cursor:pointer;
+    transition: background .2s;
+  }
+  .btn-principal:hover{ background: var(--rouge-sombre); }
+  .btn-principal:disabled{ opacity:0.5; cursor:not-allowed; }
+
+  /* Récap identité affiché à l'étape 2 */
+  .recap-identite{
+    background: var(--fond);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+  }
+  .recap-identite .nom{ font-weight:700; }
+  .recap-identite .email{ color: var(--texte-clair); font-size: 0.85rem; }
+  .recap-identite button{
+    background:none; border:none; color: var(--rouge);
+    font-size: 0.8rem; font-weight:700; cursor:pointer; margin-top: 6px;
+    text-decoration: underline; padding:0;
+  }
+
+  .recap-prix{
+    display:flex; justify-content:space-between; align-items:center;
+    background: var(--fond);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 22px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 0.9rem;
+  }
+  .recap-prix span:last-child{ color: var(--rouge); font-weight:700; }
+
+  .message{ margin-top: 18px; padding: 14px 16px; border-radius: 10px; font-size: 0.88rem; display:none; }
+  .message.ok{
+    display:block; background: rgba(46,125,50,0.08);
+    border: 1px solid rgba(46,125,50,0.35); color: #1e5f22;
+  }
+  .message.ok a{ color: var(--rouge); font-weight:700; text-decoration: underline; }
+  .message.err{
+    display:block; background: rgba(200,30,43,0.08);
+    border: 1px solid rgba(200,30,43,0.35); color: var(--rouge-sombre);
+  }
+
+  #etape-2{ display:none; }
+
+  footer{
+    text-align:center; padding: 26px 6%;
+    background: var(--noir); color: rgba(255,255,255,0.5);
+    font-size: 0.8rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">G<span>∆</span>MYs <span>ACADEMY</span></div>
+  <nav>
+    <ul>
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="formations.html">Formations</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <div class="etapes-nav">
+    <div class="pastille active" id="pastille-1">1</div>
+    <span class="label active" id="label-1">Inscription</span>
+    <div class="trait"></div>
+    <div class="pastille" id="pastille-2">2</div>
+    <span class="label" id="label-2">Paiement</span>
+  </div>
+
+  <!-- ============ ÉTAPE 1 : INSCRIPTION ============ -->
+  <div id="etape-1">
+    <h1>Créer ton accès</h1>
+    <p class="sous-titre">Renseigne tes informations pour t'inscrire à une formation.</p>
+
+    <div class="carte-form">
+      <form id="form-etape-1">
+        <div class="champ">
+          <label for="prenom">Prénom</label>
+          <input type="text" id="prenom" required placeholder="Ex : Gabin">
+        </div>
+        <div class="champ">
+          <label for="nom">Nom</label>
+          <input type="text" id="nom" required placeholder="Ex : Ahouansou">
+        </div>
+        <div class="champ">
+          <label for="email">Adresse Gmail</label>
+          <input type="email" id="email" required placeholder="toi@gmail.com">
+        </div>
+        <div class="champ">
+          <label for="formation">Formation choisie</label>
+          <select id="formation"></select>
+        </div>
+        <button type="submit" class="btn-principal">Continuer vers le paiement</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============ ÉTAPE 2 : PAIEMENT ============ -->
+  <div id="etape-2">
+    <h1>Finalise ton paiement</h1>
+    <p class="sous-titre">Dernière étape avant d'accéder à ta formation.</p>
+
+    <div class="carte-form">
+      <div class="recap-identite">
+        <div class="nom" id="recap-nom"></div>
+        <div class="email" id="recap-email"></div>
+        <button type="button" id="btn-modifier">Modifier mes infos</button>
+      </div>
+
+      <div class="recap-prix">
+        <span id="recap-formation">—</span>
+        <span id="recap-prix-montant">—</span>
+      </div>
+
+      <button type="button" class="btn-principal" id="btn-payer">Payer avec Kkiapay</button>
+
+      <div class="message" id="message"></div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  © 2026 G∆MYs Academy — Cotonou, Bénin
+</footer>
+
+<script src="formations-data.js"></script>
+<script src="https://cdn.kkiapay.me/k.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+<script>
+  // ⚠️ 1. Remplace cette clé par TA clé publique Kkiapay (app.kkiapay.me/dashboard)
+  const KKIAPAY_CLE_PUBLIQUE = "TA_CLE_PUBLIQUE_KKIAPAY";
+  const KKIAPAY_SANDBOX = true; // passe à false quand tu es prêt à recevoir de vrais paiements
+
+  // ⚠️ 2. Remplace ces 3 valeurs par celles de ton compte EmailJS (emailjs.com, gratuit)
+  const EMAILJS_PUBLIC_KEY = "TA_CLE_PUBLIQUE_EMAILJS";
+  const EMAILJS_SERVICE_ID = "TON_SERVICE_ID_EMAILJS";
+  const EMAILJS_TEMPLATE_ID = "TON_TEMPLATE_ID_EMAILJS";
+  emailjs.init(EMAILJS_PUBLIC_KEY);
+
+  const selectFormation = document.getElementById('formation');
+  const etape1 = document.getElementById('etape-1');
+  const etape2 = document.getElementById('etape-2');
+  const pastille1 = document.getElementById('pastille-1');
+  const pastille2 = document.getElementById('pastille-2');
+  const label1 = document.getElementById('label-1');
+  const label2 = document.getElementById('label-2');
+
+  // Remplit le menu déroulant depuis formations-data.js
+  FORMATIONS.forEach(function(f){
+    const option = document.createElement('option');
+    option.value = f.id;
+    option.textContent = f.titre + " (" + f.prix.toLocaleString('fr-FR') + " FCFA)";
+    selectFormation.appendChild(option);
+  });
+
+  // Pré-sélectionne la formation si on arrive depuis formations.html?formation=xxx
+  const parametres = new URLSearchParams(window.location.search);
+  const formationDemandee = parametres.get('formation');
+  if(formationDemandee){ selectFormation.value = formationDemandee; }
+
+  function formationActuelle(){
+    return FORMATIONS.find(f => f.id === selectFormation.value);
+  }
+
+  let infosApprenant = null;
+
+  document.getElementById('form-etape-1').addEventListener('submit', function(e){
+    e.preventDefault();
+    infosApprenant = {
+      prenom: document.getElementById('prenom').value.trim(),
+      nom: document.getElementById('nom').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      formation: formationActuelle()
+    };
+    if(!infosApprenant.prenom || !infosApprenant.nom || !infosApprenant.email) return;
+
+    // Affiche l'étape 2
+    document.getElementById('recap-nom').textContent = infosApprenant.prenom + " " + infosApprenant.nom;
+    document.getElementById('recap-email').textContent = infosApprenant.email;
+    document.getElementById('recap-formation').textContent = infosApprenant.formation.titre;
+    document.getElementById('recap-prix-montant').textContent = infosApprenant.formation.prix.toLocaleString('fr-FR') + " FCFA";
+
+    etape1.style.display = 'none';
+    etape2.style.display = 'block';
+    pastille1.classList.remove('active'); pastille1.textContent = '✓';
+    pastille2.classList.add('active');
+    label1.classList.remove('active'); label2.classList.add('active');
+  });
+
+  document.getElementById('btn-modifier').addEventListener('click', function(){
+    etape2.style.display = 'none';
+    etape1.style.display = 'block';
+    pastille1.classList.add('active'); pastille1.textContent = '1';
+    pastille2.classList.remove('active');
+    label1.classList.add('active'); label2.classList.remove('active');
+  });
+
+  document.getElementById('btn-payer').addEventListener('click', function(){
+    const btn = this;
+    btn.disabled = true;
+    btn.textContent = "Ouverture du paiement...";
+
+    openKkiapayWidget({
+      amount: infosApprenant.formation.prix,
+      key: KKIAPAY_CLE_PUBLIQUE,
+      sandbox: KKIAPAY_SANDBOX,
+      name: infosApprenant.prenom + " " + infosApprenant.nom,
+      email: infosApprenant.email,
+      data: infosApprenant.formation.id
+    });
+
+    btn.textContent = "Payer avec Kkiapay";
+    btn.disabled = false;
+  });
+
+  // Appelé automatiquement quand Kkiapay confirme un paiement réussi
+  addSuccessListener(function(response){
+    const message = document.getElementById('message');
+    const f = infosApprenant.formation;
+
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+      to_email: infosApprenant.email,
+      prenom: infosApprenant.prenom,
+      nom: infosApprenant.nom,
+      formation: f.titre,
+      montant: f.prix.toLocaleString('fr-FR') + " FCFA",
+      transaction_id: response.transactionId,
+      lien_formation: f.lienDrive
+    });
+
+    message.className = 'message ok';
+    message.innerHTML = "Paiement réussi ! Ton reçu part à " + infosApprenant.email + ". Tu peux aussi accéder tout de suite à ta formation ici : <a href='" + f.lienDrive + "' target='_blank' rel='noopener'>Accéder à la formation</a>";
+  });
+</script>
+
+</body>
+</html>
