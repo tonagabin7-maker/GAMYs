@@ -8,6 +8,8 @@
    - id            : un nom court unique, sans espace (ex: "formation-4")
    - titre         : le nom de la formation
    - niveau        : "Débutant", "Intermédiaire", "Avancé", ou "À venir"
+   - duree         : ex "3 jours", "20 jours" — s'affiche sur la carte
+   - lecons        : ex "5 leçons" — s'affiche sur la carte
    - description   : une phrase qui donne envie
    - prix          : le montant en FCFA, juste le nombre (sans espace)
    - affiche       : le lien de l'image/affiche de la formation
@@ -24,6 +26,8 @@ const FORMATIONS = [
     id: "graphic-phone",
     titre: "Graphic Phone — Initiation PixelLab",
     niveau: "Débutant",
+    duree: "3 jours",
+    lecons: "5 leçons",
     description: "Apprends à créer des visuels professionnels avec PixelLab, uniquement depuis ton smartphone. Programme en 3 jours + exercices clients.",
     prix: 15000,
     affiche: "images/affiche-graphic-phone.jpg",
@@ -33,6 +37,8 @@ const FORMATIONS = [
     id: "20-jours-20-creations",
     titre: "20 jours, 20 créations",
     niveau: "Intermédiaire",
+    duree: "20 jours",
+    lecons: "20 leçons",
     description: "Un défi guidé pour créer une habitude de design : un visuel par jour pendant 20 jours, avec correction et retours.",
     prix: 10000,
     affiche: "images/affiche-20-jours.jpg",
@@ -44,6 +50,8 @@ const FORMATIONS = [
   //   id: "ma-nouvelle-formation",
   //   titre: "Titre de la formation",
   //   niveau: "Débutant",
+  //   duree: "5 jours",
+  //   lecons: "8 leçons",
   //   description: "Description qui donne envie.",
   //   prix: 20000,
   //   affiche: "images/ma-nouvelle-affiche.jpg",
