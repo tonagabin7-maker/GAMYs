@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>G∆MYs Academy — Inscription</title>
+<title>G∆MYs Academy — Mon espace</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
   :root{
     --rouge: #C81E2B;
@@ -25,6 +25,7 @@
     line-height: 1.5;
   }
   a{ color:inherit; text-decoration:none; }
+  button{ font-family: inherit; }
 
   header{
     display:flex; justify-content:space-between; align-items:center;
@@ -36,87 +37,50 @@
   .logo{ font-family:'Archivo Black', sans-serif; font-size: 1.05rem; color: var(--texte); }
   .logo span{ color: var(--rouge); }
   .btn-menu{
-    width: 38px; height: 38px;
-    border-radius: 10px;
-    border: 1px solid rgba(17,17,17,0.15);
-    background: #fff;
-    display:flex; align-items:center; justify-content:center;
-    cursor:pointer;
+    width: 38px; height: 38px; border-radius: 10px;
+    border: 1px solid rgba(17,17,17,0.15); background: #fff;
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
   }
   .btn-menu span, .btn-menu span::before, .btn-menu span::after{
-    content:""; display:block;
-    width: 16px; height: 2px;
-    background: var(--texte);
-    position:relative;
+    content:""; display:block; width: 16px; height: 2px; background: var(--texte); position:relative;
   }
   .btn-menu span::before{ position:absolute; top:-5px; }
   .btn-menu span::after{ position:absolute; top:5px; }
 
   .menu-overlay{
-    position: fixed; inset:0;
-    background: #fff;
-    z-index: 40;
-    display:none;
-    flex-direction:column;
-    padding: 14px 6% 30px;
-    overflow-y:auto;
+    position: fixed; inset:0; background: #fff; z-index: 40;
+    display:none; flex-direction:column; padding: 14px 6% 30px; overflow-y:auto;
   }
   .menu-overlay.ouvert{ display:flex; }
   .menu-top{ display:flex; justify-content:space-between; align-items:center; margin-bottom: 26px; }
   .btn-fermer{
     width: 38px; height: 38px; border-radius: 10px;
     border: 1px solid rgba(17,17,17,0.15); background:#fff;
-    display:flex; align-items:center; justify-content:center;
-    font-size: 1.1rem; cursor:pointer;
-  }
-  .menu-recherche{
-    display:flex; align-items:center; gap:10px;
-    border: 1px solid rgba(17,17,17,0.15); border-radius: 999px;
-    padding: 12px 18px; margin-bottom: 26px;
-    color: var(--texte-clair); font-size: 0.85rem;
+    display:flex; align-items:center; justify-content:center; font-size: 1.1rem; cursor:pointer;
   }
   .menu-liens{ list-style:none; display:flex; flex-direction:column; gap: 22px; }
   .menu-liens a{ font-size: 1.05rem; font-weight:700; color: var(--texte); }
   .menu-liens a:hover{ color: var(--rouge); }
-  .menu-cta{
-    margin-top: 30px; display:block; text-align:center;
-    background: var(--rouge); color:#fff; font-weight:700; font-size: 0.9rem;
-    padding: 14px; border-radius: 999px;
-  }
 
-  main{
-    max-width: 480px;
-    margin: 0 auto;
-    padding: 40px 6% 80px;
-  }
+  main{ max-width: 520px; margin: 0 auto; padding: 40px 6% 110px; }
 
-  /* Indicateur des 2 étapes */
   .etapes-nav{
-    display:flex;
-    align-items:center;
-    gap: 8px;
-    margin-bottom: 28px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size: 0.7rem;
+    display:flex; align-items:center; gap: 6px;
+    margin-bottom: 26px;
+    font-family:'IBM Plex Mono', monospace; font-size: 0.68rem;
   }
   .etapes-nav .pastille{
-    width: 26px; height: 26px;
-    border-radius: 50%;
+    width: 24px; height: 24px; border-radius: 50%;
     display:flex; align-items:center; justify-content:center;
-    background: rgba(17,17,17,0.08);
-    color: var(--texte-clair);
+    background: rgba(17,17,17,0.08); color: var(--texte-clair);
+    flex-shrink:0;
   }
   .etapes-nav .pastille.active{ background: var(--rouge); color:#fff; }
-  .etapes-nav .trait{ flex:1; height:1px; background: rgba(17,17,17,0.15); }
+  .etapes-nav .trait{ flex:1; height:1px; background: rgba(17,17,17,0.15); min-width: 8px; }
   .etapes-nav span.label{ color: var(--texte-clair); }
   .etapes-nav span.label.active{ color: var(--texte); font-weight:700; }
 
-  h1{
-    font-family:'Archivo Black', sans-serif;
-    font-size: 1.3rem;
-    line-height: 1.25;
-    margin-bottom: 6px;
-  }
+  h1{ font-family:'Archivo Black', sans-serif; font-size: 1.3rem; margin-bottom: 6px; }
   .sous-titre{ color: var(--texte-clair); font-size: 0.82rem; margin-bottom: 24px; }
 
   .carte-form{
@@ -131,84 +95,62 @@
   .champ label{
     display:block;
     font-family:'IBM Plex Mono', monospace;
-    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em;
+    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em;
     color: var(--texte-clair); margin-bottom: 8px;
   }
-  .champ input, .champ select{
-    width:100%;
-    background: var(--fond);
-    border: 1px solid rgba(17,17,17,0.15);
-    color: var(--texte);
-    font-family:'Inter', sans-serif;
-    font-size: 0.95rem;
-    padding: 13px 14px;
-    border-radius: 10px;
-    outline:none;
+  .champ input{
+    width:100%; background: var(--fond);
+    border: 1px solid rgba(17,17,17,0.15); color: var(--texte);
+    font-family:'Inter', sans-serif; font-size: 0.9rem;
+    padding: 13px 14px; border-radius: 10px; outline:none;
     transition: border-color .2s;
   }
-  .champ input:focus, .champ select:focus{ border-color: var(--rouge); }
+  .champ input:focus{ border-color: var(--rouge); }
 
   .btn-principal{
-    width:100%;
-    background: var(--rouge); color:#fff;
-    font-family:'Inter', sans-serif; font-weight:700; font-size: 1rem;
+    width:100%; background: var(--rouge); color:#fff;
+    font-weight:700; font-size: 0.95rem;
     padding: 15px; border:none; border-radius: 999px; cursor:pointer;
     transition: background .2s;
   }
   .btn-principal:hover{ background: var(--rouge-sombre); }
   .btn-principal:disabled{ opacity:0.5; cursor:not-allowed; }
 
-  /* Récap identité affiché à l'étape 2 */
-  .recap-identite{
-    background: var(--fond);
-    border-radius: 10px;
-    padding: 14px 16px;
-    margin-bottom: 20px;
-    font-size: 0.9rem;
-  }
-  .recap-identite .nom{ font-weight:700; }
-  .recap-identite .email{ color: var(--texte-clair); font-size: 0.85rem; }
-  .recap-identite button{
-    background:none; border:none; color: var(--rouge);
-    font-size: 0.8rem; font-weight:700; cursor:pointer; margin-top: 6px;
-    text-decoration: underline; padding:0;
+  .btn-secondaire{
+    width:100%; background: none; color: var(--texte-clair);
+    font-weight:600; font-size: 0.8rem;
+    padding: 12px; border: none; cursor:pointer;
+    text-decoration: underline; margin-top: 6px;
   }
 
-  .recap-prix{
-    display:flex; justify-content:space-between; align-items:center;
-    background: var(--fond);
-    border-radius: 10px;
-    padding: 14px 16px;
-    margin-bottom: 22px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size: 0.9rem;
-  }
-  .recap-prix span:last-child{ color: var(--rouge); font-weight:700; }
-
-  .message{ margin-top: 18px; padding: 14px 16px; border-radius: 10px; font-size: 0.88rem; display:none; }
-  .message.ok{
-    display:block; background: rgba(46,125,50,0.08);
-    border: 1px solid rgba(46,125,50,0.35); color: #1e5f22;
-  }
-  .message.ok a{ color: var(--rouge); font-weight:700; text-decoration: underline; }
-  .message.err{
-    display:block; background: rgba(200,30,43,0.08);
-    border: 1px solid rgba(200,30,43,0.35); color: var(--rouge-sombre);
+  .note-compte{
+    text-align:center; color: var(--texte-clair);
+    font-size: 0.78rem; margin-top: 16px;
   }
 
   #etape-2, #etape-3{ display:none; }
 
-  /* Cartes du catalogue à l'étape 2 */
+  .bienvenue{
+    background: rgba(200,30,43,0.06);
+    border: 1px solid rgba(200,30,43,0.2);
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-size: 0.82rem;
+    margin-bottom: 18px;
+    display:flex; justify-content:space-between; align-items:center; gap:10px;
+  }
+  .bienvenue button{
+    background:none; border:none; color: var(--rouge);
+    font-size: 0.75rem; font-weight:700; text-decoration:underline; cursor:pointer;
+  }
+
   .cat-carte{
     background: var(--carte);
     border: 1px solid rgba(17,17,17,0.08);
     border-radius: 16px;
     overflow:hidden;
     margin-bottom: 16px;
-    cursor:pointer;
-    transition: transform .2s, box-shadow .2s;
   }
-  .cat-carte:hover{ transform: translateY(-3px); box-shadow: 0 10px 22px rgba(17,17,17,0.08); }
   .cat-carte .img-wrap{ aspect-ratio: 16/9; background: var(--noir); }
   .cat-carte .img-wrap img{ width:100%; height:100%; object-fit:cover; display:block; }
   .cat-carte .corps{ padding: 14px 16px 16px; }
@@ -216,25 +158,69 @@
   .cat-carte .stats{ display:flex; gap:10px; flex-wrap:wrap; font-size: 0.74rem; color: var(--texte-clair); margin-bottom: 12px; }
   .cat-carte .pied{ display:flex; justify-content:space-between; align-items:center; }
   .cat-carte .prix{ font-family:'IBM Plex Mono', monospace; font-weight:700; font-size: 0.9rem; }
-  .cat-carte .acheter{
-    background: var(--rouge); color:#fff; font-weight:700; font-size: 0.78rem;
-    padding: 8px 16px; border-radius: 999px;
+  .cat-carte .btn-panier{
+    background: var(--noir); color:#fff; font-weight:700; font-size: 0.76rem;
+    padding: 8px 16px; border-radius: 999px; border:none; cursor:pointer;
+    transition: background .2s;
+  }
+  .cat-carte .btn-panier.dans-panier{ background: var(--rouge); }
+
+  /* Barre panier fixe en bas */
+  .barre-panier{
+    position: fixed; left:0; right:0; bottom:0;
+    background: var(--noir); color:#fff;
+    padding: 14px 6%;
+    display:flex; justify-content:space-between; align-items:center;
+    gap: 12px;
+    z-index: 20;
+    transform: translateY(100%);
+    transition: transform .25s ease;
+  }
+  .barre-panier.visible{ transform: translateY(0); }
+  .barre-panier .info{ font-size: 0.82rem; }
+  .barre-panier .info b{ font-family:'IBM Plex Mono', monospace; color: var(--rouge); }
+  .barre-panier button{
+    background: var(--rouge); color:#fff; font-weight:700; font-size: 0.8rem;
+    padding: 10px 18px; border-radius: 999px; border:none; cursor:pointer;
+    white-space: nowrap;
   }
 
-  .btn-secondaire{
-    width:100%;
-    background: none;
-    color: var(--texte-clair);
-    font-family:'Inter', sans-serif; font-weight:600; font-size: 0.82rem;
-    padding: 12px; border: none; cursor:pointer;
-    text-decoration: underline;
-    margin-top: 6px;
+  .panier-liste{ margin-bottom: 18px; }
+  .panier-ligne{
+    display:flex; justify-content:space-between; align-items:center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(17,17,17,0.08);
+    font-size: 0.85rem;
+  }
+  .panier-ligne .prix-ligne{ font-family:'IBM Plex Mono', monospace; color: var(--texte-clair); }
+
+  .recap-total{
+    display:flex; justify-content:space-between; align-items:center;
+    background: var(--fond);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 22px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 0.95rem;
+    font-weight:700;
+  }
+  .recap-total span:last-child{ color: var(--rouge); }
+
+  .message{ margin-top: 18px; padding: 14px 16px; border-radius: 10px; font-size: 0.85rem; display:none; }
+  .message.ok{
+    display:block; background: rgba(46,125,50,0.08);
+    border: 1px solid rgba(46,125,50,0.35); color: #1e5f22;
+  }
+  .message.ok a{ color: var(--rouge); font-weight:700; text-decoration: underline; display:block; margin-top:4px; }
+  .message.err{
+    display:block; background: rgba(200,30,43,0.08);
+    border: 1px solid rgba(200,30,43,0.35); color: var(--rouge-sombre);
   }
 
   footer{
-    text-align:center; padding: 26px 6%;
+    text-align:center; padding: 22px 6%;
     background: var(--noir); color: rgba(255,255,255,0.5);
-    font-size: 0.8rem;
+    font-size: 0.74rem;
   }
 </style>
 </head>
@@ -250,20 +236,18 @@
     <div class="logo">G<span>∆</span>MYs <span>ACADEMY</span></div>
     <button class="btn-fermer" id="btn-fermer-menu" aria-label="Fermer">✕</button>
   </div>
-  <div class="menu-recherche">🔍 Que veux-tu apprendre ?</div>
   <ul class="menu-liens">
     <li><a href="index.html">Accueil</a></li>
     <li><a href="formations.html">Formations</a></li>
     <li><a href="inscription.html">Mon espace</a></li>
     <li><a href="contact.html">Contact</a></li>
   </ul>
-  <a href="formations.html" class="menu-cta">Voir toutes les formations →</a>
 </div>
 
 <main>
   <div class="etapes-nav">
     <div class="pastille active" id="pastille-1">1</div>
-    <span class="label active" id="label-1">Inscription</span>
+    <span class="label active" id="label-1">Compte</span>
     <div class="trait"></div>
     <div class="pastille" id="pastille-2">2</div>
     <span class="label" id="label-2">Formations</span>
@@ -272,13 +256,20 @@
     <span class="label" id="label-3">Paiement</span>
   </div>
 
-  <!-- ============ ÉTAPE 1 : INSCRIPTION ============ -->
+  <!-- ============ ÉTAPE 1 : COMPTE (Netlify Identity) ============ -->
   <div id="etape-1">
-    <h1>Créer ton accès</h1>
-    <p class="sous-titre">Renseigne tes informations pour continuer.</p>
+    <h1>Ton espace personnel</h1>
+    <p class="sous-titre">Connecte-toi avec ton email et ton mot de passe, ou crée ton compte. Tu pourras revenir accéder à ton espace n'importe quand.</p>
 
-    <div class="carte-form">
-      <form id="form-etape-1">
+    <div class="carte-form" id="carte-connexion">
+      <button type="button" class="btn-principal" id="btn-ouvrir-identity">Se connecter / Créer un compte</button>
+      <div class="note-compte">Ton compte est géré de façon sécurisée par Netlify.</div>
+    </div>
+
+    <!-- Formulaire "compléter le profil", affiché seulement après une inscription -->
+    <div class="carte-form" id="carte-profil" style="display:none; margin-top:16px;">
+      <p class="sous-titre" style="margin-bottom:16px;">Encore une étape : dis-nous qui tu es.</p>
+      <form id="form-profil">
         <div class="champ">
           <label for="prenom">Prénom</label>
           <input type="text" id="prenom" required placeholder="Ex : Gabin">
@@ -287,53 +278,57 @@
           <label for="nom">Nom</label>
           <input type="text" id="nom" required placeholder="Ex : Ahouansou">
         </div>
-        <div class="champ">
-          <label for="email">Adresse Gmail</label>
-          <input type="email" id="email" required placeholder="toi@gmail.com">
-        </div>
-        <button type="submit" class="btn-principal">Voir les formations</button>
+        <button type="submit" class="btn-principal">Continuer</button>
       </form>
     </div>
   </div>
 
-  <!-- ============ ÉTAPE 2 : CATALOGUE DES FORMATIONS ============ -->
+  <!-- ============ ÉTAPE 2 : CATALOGUE + PANIER ============ -->
   <div id="etape-2">
-    <h1>Choisis ta formation</h1>
-    <p class="sous-titre">Appuie sur une formation pour l'acheter.</p>
+    <h1>Choisis tes formations</h1>
+    <p class="sous-titre">Ajoute une ou plusieurs formations à ton panier, puis paie en une seule fois.</p>
+
+    <div class="bienvenue">
+      <span id="texte-bienvenue"></span>
+      <button type="button" id="btn-deconnexion">Se déconnecter</button>
+    </div>
 
     <div id="catalogue-etape2"></div>
   </div>
 
-  <!-- ============ ÉTAPE 3 : PAIEMENT ============ -->
+  <!-- ============ ÉTAPE 3 : PAIEMENT DU PANIER ============ -->
   <div id="etape-3">
     <h1>Finalise ton paiement</h1>
-    <p class="sous-titre">Dernière étape avant d'accéder à ta formation.</p>
+    <p class="sous-titre">Vérifie ton panier avant de payer.</p>
 
     <div class="carte-form">
-      <div class="recap-identite">
-        <div class="nom" id="recap-nom"></div>
-        <div class="email" id="recap-email"></div>
-        <button type="button" id="btn-modifier">Modifier mes infos</button>
-      </div>
+      <div class="panier-liste" id="panier-liste-etape3"></div>
 
-      <div class="recap-prix">
-        <span id="recap-formation">—</span>
-        <span id="recap-prix-montant">—</span>
+      <div class="recap-total">
+        <span>Total à payer</span>
+        <span id="recap-total-montant">—</span>
       </div>
 
       <button type="button" class="btn-principal" id="btn-payer">Payer avec Kkiapay</button>
-      <button type="button" class="btn-secondaire" id="btn-changer-formation">Choisir une autre formation</button>
+      <button type="button" class="btn-secondaire" id="btn-retour-catalogue">← Modifier mon panier</button>
 
       <div class="message" id="message"></div>
     </div>
   </div>
 </main>
 
+<!-- Barre panier flottante (visible à l'étape 2 uniquement) -->
+<div class="barre-panier" id="barre-panier">
+  <div class="info"><b id="panier-nombre">0</b> formation(s) — <span id="panier-total">0 FCFA</span></div>
+  <button type="button" id="btn-voir-panier">Voir mon panier →</button>
+</div>
+
 <footer>
   © 2026 G∆MYs Academy — Cotonou, Bénin
 </footer>
 
 <script src="formations-data.js"></script>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <script src="https://cdn.kkiapay.me/k.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
@@ -348,15 +343,15 @@
   const EMAILJS_TEMPLATE_ID = "TON_TEMPLATE_ID_EMAILJS";
   emailjs.init(EMAILJS_PUBLIC_KEY);
 
-  const btnOuvrir = document.getElementById('btn-ouvrir-menu');
-  const btnFermer = document.getElementById('btn-fermer-menu');
-  const menu = document.getElementById('menu-overlay');
-  btnOuvrir.addEventListener('click', () => menu.classList.add('ouvert'));
-  btnFermer.addEventListener('click', () => menu.classList.remove('ouvert'));
+  // ===== Menu hamburger =====
+  document.getElementById('btn-ouvrir-menu').addEventListener('click', () => document.getElementById('menu-overlay').classList.add('ouvert'));
+  document.getElementById('btn-fermer-menu').addEventListener('click', () => document.getElementById('menu-overlay').classList.remove('ouvert'));
 
+  // ===== Navigation entre étapes =====
   const etape1 = document.getElementById('etape-1');
   const etape2 = document.getElementById('etape-2');
   const etape3 = document.getElementById('etape-3');
+  const barrePanier = document.getElementById('barre-panier');
   const pastilles = [1,2,3].map(n => document.getElementById('pastille-' + n));
   const labels = [1,2,3].map(n => document.getElementById('label-' + n));
 
@@ -370,31 +365,93 @@
       p.textContent = n < numero ? '✓' : n;
     });
     labels.forEach(function(l, i){ l.classList.toggle('active', (i + 1) === numero); });
+    barrePanier.classList.toggle('visible', numero === 2 && panier.length > 0);
   }
 
-  let infosApprenant = null;
+  // ===== Netlify Identity : connexion / inscription persistante =====
+  netlifyIdentity.init();
 
-  // ===== ÉTAPE 1 → ÉTAPE 2 : inscription puis affichage du catalogue =====
-  document.getElementById('form-etape-1').addEventListener('submit', function(e){
-    e.preventDefault();
-    infosApprenant = {
-      prenom: document.getElementById('prenom').value.trim(),
-      nom: document.getElementById('nom').value.trim(),
-      email: document.getElementById('email').value.trim()
-    };
-    if(!infosApprenant.prenom || !infosApprenant.nom || !infosApprenant.email) return;
-
-    afficherCatalogue();
-    allerA(2);
+  document.getElementById('btn-ouvrir-identity').addEventListener('click', function(){
+    netlifyIdentity.open();
   });
 
-  // Construit la liste de toutes les formations disponibles à l'étape 2
+  netlifyIdentity.on('login', function(user){
+    netlifyIdentity.close();
+    verifierProfilPuisContinuer(user);
+  });
+
+  netlifyIdentity.on('signup', function(user){
+    // Après inscription, Netlify peut exiger une confirmation par email selon tes réglages
+    verifierProfilPuisContinuer(user);
+  });
+
+  netlifyIdentity.on('init', function(user){
+    if(user){ verifierProfilPuisContinuer(user); }
+  });
+
+  function verifierProfilPuisContinuer(user){
+    const meta = user.user_metadata || {};
+    if(meta.prenom && meta.nom){
+      document.getElementById('carte-connexion').style.display = 'none';
+      document.getElementById('carte-profil').style.display = 'none';
+      afficherBienvenue(meta.prenom);
+      afficherCatalogue();
+      allerA(2);
+    } else {
+      document.getElementById('carte-connexion').style.display = 'none';
+      document.getElementById('carte-profil').style.display = 'block';
+    }
+  }
+
+  document.getElementById('form-profil').addEventListener('submit', function(e){
+    e.preventDefault();
+    const prenom = document.getElementById('prenom').value.trim();
+    const nom = document.getElementById('nom').value.trim();
+    if(!prenom || !nom) return;
+
+    const user = netlifyIdentity.currentUser();
+    user.update({ data: { prenom: prenom, nom: nom } }).then(function(){
+      afficherBienvenue(prenom);
+      afficherCatalogue();
+      allerA(2);
+    });
+  });
+
+  document.getElementById('btn-deconnexion').addEventListener('click', function(){
+    netlifyIdentity.logout();
+    panier = [];
+    document.getElementById('carte-connexion').style.display = 'block';
+    document.getElementById('carte-profil').style.display = 'none';
+    allerA(1);
+  });
+
+  function afficherBienvenue(prenom){
+    document.getElementById('texte-bienvenue').textContent = "Connecté(e) en tant que " + prenom;
+  }
+
+  // ===== Panier =====
+  let panier = []; // tableau d'id de formations
+
+  function totalPanier(){
+    return panier.reduce(function(somme, id){
+      const f = FORMATIONS.find(x => x.id === id);
+      return somme + f.prix;
+    }, 0);
+  }
+
+  function majBarrePanier(){
+    document.getElementById('panier-nombre').textContent = panier.length;
+    document.getElementById('panier-total').textContent = totalPanier().toLocaleString('fr-FR') + " FCFA";
+    barrePanier.classList.toggle('visible', panier.length > 0 && etape2.style.display !== 'none');
+  }
+
   function afficherCatalogue(){
     const conteneur = document.getElementById('catalogue-etape2');
     conteneur.innerHTML = '';
     FORMATIONS.forEach(function(f){
       const carte = document.createElement('div');
       carte.className = 'cat-carte';
+      const dansLePanier = panier.includes(f.id);
       carte.innerHTML = `
         <div class="img-wrap">
           <img src="${f.affiche}" alt="Affiche — ${f.titre}" onerror="this.src='https://placehold.co/600x340/111111/F7F5F0?text=Affiche'">
@@ -404,49 +461,71 @@
           <div class="stats"><span>⏱ ${f.duree}</span><span>▶ ${f.lecons}</span><span>${f.niveau}</span></div>
           <div class="pied">
             <span class="prix">${f.prix.toLocaleString('fr-FR')} FCFA</span>
-            <span class="acheter">Acheter →</span>
+            <button type="button" class="btn-panier ${dansLePanier ? 'dans-panier' : ''}" data-id="${f.id}">
+              ${dansLePanier ? '✓ Dans le panier' : 'Ajouter au panier'}
+            </button>
           </div>
         </div>
       `;
-      carte.addEventListener('click', function(){
-        infosApprenant.formation = f;
-        afficherRecapPaiement();
-        allerA(3);
-      });
       conteneur.appendChild(carte);
     });
+
+    conteneur.querySelectorAll('.btn-panier').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        const id = btn.dataset.id;
+        const index = panier.indexOf(id);
+        if(index === -1){ panier.push(id); }
+        else{ panier.splice(index, 1); }
+        afficherCatalogue();
+        majBarrePanier();
+      });
+    });
+
+    majBarrePanier();
   }
 
-  document.getElementById('btn-modifier').addEventListener('click', function(){
-    allerA(1);
+  document.getElementById('btn-voir-panier').addEventListener('click', function(){
+    if(panier.length === 0) return;
+    afficherRecapPaiement();
+    allerA(3);
   });
 
-  document.getElementById('btn-changer-formation').addEventListener('click', function(){
+  document.getElementById('btn-retour-catalogue').addEventListener('click', function(){
+    afficherCatalogue();
     allerA(2);
   });
 
   function afficherRecapPaiement(){
-    const f = infosApprenant.formation;
-    document.getElementById('recap-nom').textContent = infosApprenant.prenom + " " + infosApprenant.nom;
-    document.getElementById('recap-email').textContent = infosApprenant.email;
-    document.getElementById('recap-formation').textContent = f.titre;
-    document.getElementById('recap-prix-montant').textContent = f.prix.toLocaleString('fr-FR') + " FCFA";
+    const conteneur = document.getElementById('panier-liste-etape3');
+    conteneur.innerHTML = '';
+    panier.forEach(function(id){
+      const f = FORMATIONS.find(x => x.id === id);
+      const ligne = document.createElement('div');
+      ligne.className = 'panier-ligne';
+      ligne.innerHTML = `<span>${f.titre}</span><span class="prix-ligne">${f.prix.toLocaleString('fr-FR')} FCFA</span>`;
+      conteneur.appendChild(ligne);
+    });
+    document.getElementById('recap-total-montant').textContent = totalPanier().toLocaleString('fr-FR') + " FCFA";
     document.getElementById('message').className = 'message';
     document.getElementById('message').textContent = '';
   }
 
+  // ===== Paiement Kkiapay du panier entier =====
   document.getElementById('btn-payer').addEventListener('click', function(){
     const btn = this;
     btn.disabled = true;
     btn.textContent = "Ouverture du paiement...";
 
+    const user = netlifyIdentity.currentUser();
+    const meta = user.user_metadata || {};
+
     openKkiapayWidget({
-      amount: infosApprenant.formation.prix,
+      amount: totalPanier(),
       key: KKIAPAY_CLE_PUBLIQUE,
       sandbox: KKIAPAY_SANDBOX,
-      name: infosApprenant.prenom + " " + infosApprenant.nom,
-      email: infosApprenant.email,
-      data: infosApprenant.formation.id
+      name: (meta.prenom || '') + " " + (meta.nom || ''),
+      email: user.email,
+      data: panier.join(',')
     });
 
     btn.textContent = "Payer avec Kkiapay";
@@ -456,20 +535,31 @@
   // Appelé automatiquement quand Kkiapay confirme un paiement réussi
   addSuccessListener(function(response){
     const message = document.getElementById('message');
-    const f = infosApprenant.formation;
+    const user = netlifyIdentity.currentUser();
+    const meta = user.user_metadata || {};
+
+    const formationsAchetees = panier.map(id => FORMATIONS.find(x => x.id === id));
+    const listeLiens = formationsAchetees.map(f => f.titre + " : " + f.lienDrive).join(" | ");
 
     emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-      to_email: infosApprenant.email,
-      prenom: infosApprenant.prenom,
-      nom: infosApprenant.nom,
-      formation: f.titre,
-      montant: f.prix.toLocaleString('fr-FR') + " FCFA",
+      to_email: user.email,
+      prenom: meta.prenom || '',
+      nom: meta.nom || '',
+      formations: formationsAchetees.map(f => f.titre).join(', '),
+      montant: totalPanier().toLocaleString('fr-FR') + " FCFA",
       transaction_id: response.transactionId,
-      lien_formation: f.lienDrive
+      liens_formations: listeLiens
     });
 
     message.className = 'message ok';
-    message.innerHTML = "Paiement réussi ! Ton reçu part à " + infosApprenant.email + ". Tu peux aussi accéder tout de suite à ta formation ici : <a href='" + f.lienDrive + "' target='_blank' rel='noopener'>Accéder à la formation</a>";
+    let html = "Paiement réussi ! Ton reçu part à " + user.email + ". Accède directement à tes formations :";
+    formationsAchetees.forEach(function(f){
+      html += "<a href='" + f.lienDrive + "' target='_blank' rel='noopener'>→ " + f.titre + "</a>";
+    });
+    message.innerHTML = html;
+
+    panier = [];
+    majBarrePanier();
   });
 </script>
 
