@@ -6,6 +6,19 @@
 <title>G∆MYs Academy — Mes formations</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<script>
+  // Vérifie la session AVANT l'affichage de la page, pour éviter le flash du bouton "Connexion"
+  (function(){
+    try{
+      const brut = localStorage.getItem('gamys_session');
+      if(!brut) return;
+      const session = JSON.parse(brut);
+      if(session && session.expires_at > Date.now()){
+        document.documentElement.classList.add('connecte');
+      }
+    }catch(e){}
+  })();
+</script>
 <style>
   :root{
     --rouge: #C81E2B;
@@ -46,6 +59,8 @@
     white-space: nowrap;
   }
   .btn-connexion:hover{ background: var(--rouge-sombre); }
+  html.connecte #btn-connexion-header,
+  html.connecte #lien-connexion-menu{ display:none !important; }
   .btn-menu{
     width: 38px; height: 38px;
     border-radius: 10px;
@@ -159,6 +174,29 @@
     padding: 4px 9px; border-radius: 20px;
   }
 
+  .btn-options{
+    position:absolute; top:10px; right:10px;
+    width: 30px; height: 30px; border-radius: 50%;
+    background: rgba(17,17,17,0.55); color:#fff; border:none;
+    display:flex; align-items:center; justify-content:center;
+    font-size: 1.15rem; line-height:1; cursor:pointer; z-index:2;
+  }
+  .menu-options{
+    position:absolute; top:46px; right:10px;
+    background:#fff; border-radius: 12px;
+    border: 1px solid rgba(17,17,17,0.1);
+    box-shadow: 0 10px 24px rgba(17,17,17,0.18);
+    display:none; flex-direction:column; min-width: 190px;
+    overflow:hidden; z-index:3;
+  }
+  .menu-options.ouvert{ display:flex; }
+  .menu-options button{
+    padding: 12px 14px; text-align:left; background:#fff; border:none;
+    font-size: 0.82rem; font-weight:600; color: var(--texte); cursor:pointer;
+  }
+  .menu-options button:hover{ background: var(--fond); }
+  .menu-options button.dans-panier{ color: var(--rouge); }
+
   .corps{ padding: 18px 16px 20px; }
   .corps h3{ font-family:'Archivo Black', sans-serif; font-size: 0.98rem; margin-bottom: 8px; }
   .corps p{ color: var(--texte-clair); font-size: 0.82rem; margin-bottom: 14px; }
@@ -190,7 +228,7 @@
 <header>
   <div class="logo">G<span>∆</span>MYs <span>ACADEMY</span></div>
   <div class="header-droite">
-    <a href="inscription.html" class="btn-connexion">Connexion</a>
+    <a href="inscription.html" class="btn-connexion" id="btn-connexion-header">Connexion</a>
     <button class="btn-menu" id="btn-ouvrir-menu" aria-label="Menu"><span></span></button>
   </div>
 </header>
@@ -206,7 +244,8 @@
     <li><a href="formations.html">Formations</a></li>
     <li><a href="inscription.html">Mon espace</a></li>
     <li><a href="contact.html">Contact</a></li>
-    <li><a href="inscription.html">Connexion</a></li>
+    <li id="lien-connexion-menu"><a href="inscription.html">Connexion</a></li>
+    <li><a href="inscription.html">Mon panier <span id="panier-compteur" style="color:var(--rouge); font-weight:800;">(0)</span></a></li>
   </ul>
   <a href="inscription.html" class="menu-cta">Créer mon accès →</a>
 </div>
@@ -241,17 +280,41 @@
   const grille = document.getElementById('grille-formations');
   const onglets = document.querySelectorAll('.onglet');
 
+  // ===== Panier partagé (stocké localement, lu aussi par inscription.html) =====
+  function chargerPanier(){
+    try{
+      const brut = localStorage.getItem('gamys_panier');
+      return brut ? JSON.parse(brut) : [];
+    }catch(e){ return []; }
+  }
+  function sauvegarderPanier(){
+    localStorage.setItem('gamys_panier', JSON.stringify(panier));
+  }
+  let panier = chargerPanier();
+
+  function majCompteurPanier(){
+    const compteur = document.getElementById('panier-compteur');
+    if(compteur) compteur.textContent = '(' + panier.length + ')';
+  }
+
   function afficher(filtre){
     grille.innerHTML = '';
     FORMATIONS
       .filter(f => filtre === 'tout' || f.niveau === filtre)
       .forEach(function(f){
+        const dansLePanier = panier.includes(f.id);
         const carte = document.createElement('div');
         carte.className = 'carte';
         carte.innerHTML = `
           <div class="img-wrap">
             <img src="${f.affiche}" alt="Affiche — ${f.titre}" onerror="this.src='https://placehold.co/600x375/111111/F7F5F0?text=Affiche+%C3%A0+ajouter'">
             <span class="badge-niveau">${f.niveau}</span>
+            <button type="button" class="btn-options" data-id="${f.id}" aria-label="Options">⋮</button>
+            <div class="menu-options" data-menu-id="${f.id}">
+              <button type="button" class="option-ajouter ${dansLePanier ? 'dans-panier' : ''}" data-id="${f.id}">
+                ${dansLePanier ? '✓ Retirer du panier' : 'Ajouter au panier'}
+              </button>
+            </div>
           </div>
           <div class="corps">
             <h3>${f.titre}</h3>
@@ -270,6 +333,34 @@
       });
   }
 
+  // Clique sur le bouton "⋮" : ouvre/ferme son menu ; clique sur "Ajouter/Retirer du panier" : met à jour le panier
+  grille.addEventListener('click', function(e){
+    const btnOptions = e.target.closest('.btn-options');
+    if(btnOptions){
+      e.stopPropagation();
+      const id = btnOptions.dataset.id;
+      document.querySelectorAll('.menu-options').forEach(function(m){
+        m.classList.toggle('ouvert', m.dataset.menuId === id && !m.classList.contains('ouvert'));
+      });
+      return;
+    }
+    const btnAjouter = e.target.closest('.option-ajouter');
+    if(btnAjouter){
+      const id = btnAjouter.dataset.id;
+      const index = panier.indexOf(id);
+      if(index === -1){ panier.push(id); } else { panier.splice(index, 1); }
+      sauvegarderPanier();
+      majCompteurPanier();
+      const ongletActif = document.querySelector('.onglet.actif');
+      afficher(ongletActif ? ongletActif.dataset.filtre : 'tout');
+    }
+  });
+
+  // Ferme les menus "⋮" ouverts si on clique ailleurs sur la page
+  document.addEventListener('click', function(){
+    document.querySelectorAll('.menu-options.ouvert').forEach(m => m.classList.remove('ouvert'));
+  });
+
   onglets.forEach(function(o){
     o.addEventListener('click', function(){
       onglets.forEach(x => x.classList.remove('actif'));
@@ -278,6 +369,7 @@
     });
   });
 
+  majCompteurPanier();
   afficher('tout');
 </script>
 

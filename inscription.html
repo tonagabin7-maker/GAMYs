@@ -630,7 +630,6 @@
 
   document.getElementById('btn-deconnexion').addEventListener('click', function(){
     effacerSession();
-    panier = [];
     document.getElementById('form-creation').reset();
     document.getElementById('form-connexion').reset();
     allerA(1);
@@ -648,8 +647,17 @@
     if(ok){ demarrerEspacePersonnel(); }
   });
 
-  // ===== Panier =====
-  let panier = [];
+  // ===== Panier (partagé avec formations.html via le stockage local) =====
+  function chargerPanierPartage(){
+    try{
+      const brut = localStorage.getItem('gamys_panier');
+      return brut ? JSON.parse(brut) : [];
+    }catch(e){ return []; }
+  }
+  function sauvegarderPanierPartage(){
+    localStorage.setItem('gamys_panier', JSON.stringify(panier));
+  }
+  let panier = chargerPanierPartage();
 
   function totalPanier(){
     return panier.reduce(function(somme, id){
@@ -693,6 +701,7 @@
         const id = btn.dataset.id;
         const index = panier.indexOf(id);
         if(index === -1){ panier.push(id); } else { panier.splice(index, 1); }
+        sauvegarderPanierPartage();
         afficherCatalogue();
         majBarrePanier();
       });
@@ -769,6 +778,7 @@
     message.innerHTML = html;
 
     panier = [];
+    sauvegarderPanierPartage();
     majBarrePanier();
   });
 </script>
