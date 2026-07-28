@@ -217,7 +217,7 @@
     <li><a href="formations.html">Formations</a></li>
     <li><a href="inscription.html">Mon espace</a></li>
     <li><a href="contact.html">Contact</a></li>
-    <li><a href="inscription.html">Mon panier <span id="panier-compteur-menu" style="color:var(--rouge); font-weight:800;">(0)</span></a></li>
+    <li><a href="panier.html">Mon panier <span id="panier-compteur-menu" style="color:var(--rouge); font-weight:800;">(0)</span></a></li>
   </ul>
 </div>
 
@@ -639,8 +639,15 @@
   function demarrerEspacePersonnel(){
     const meta = session.user.user_metadata || {};
     document.getElementById('texte-bienvenue').textContent = "Connecté(e) en tant que " + (meta.prenom || session.user.email);
-    afficherCatalogue();
-    allerA(2);
+    const parametres = new URLSearchParams(window.location.search);
+    if(parametres.get('paiement') === '1' && panier.length > 0){
+      afficherCatalogue();
+      afficherRecapPaiement();
+      allerA(3);
+    } else {
+      afficherCatalogue();
+      allerA(2);
+    }
   }
 
   // Au chargement de la page : reconnexion automatique si une session valide existe déjà
