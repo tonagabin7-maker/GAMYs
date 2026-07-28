@@ -335,7 +335,7 @@
 <header>
   <div class="logo">G<span>∆</span>MYs <span>ACADEMY</span></div>
   <div class="header-droite">
-    <a href="inscription.html" class="btn-connexion">Connexion</a>
+    <a href="inscription.html" class="btn-connexion" id="btn-connexion-header">Connexion</a>
     <button class="btn-menu" id="btn-ouvrir-menu" aria-label="Menu"><span></span></button>
   </div>
 </header>
@@ -352,7 +352,7 @@
     <li><a href="formations.html">Formations</a></li>
     <li><a href="inscription.html">Mon espace</a></li>
     <li><a href="contact.html">Contact</a></li>
-    <li><a href="inscription.html">Connexion</a></li>
+    <li id="lien-connexion-menu"><a href="inscription.html">Connexion</a></li>
   </ul>
   <a href="formations.html" class="menu-cta">Voir toutes les formations →</a>
 </div>
@@ -428,6 +428,21 @@
 
 <script src="formations-data.js"></script>
 <script>
+  // Cache le bouton "Connexion" si l'utilisateur a déjà une session active
+  (function(){
+    try{
+      const brut = localStorage.getItem('gamys_session');
+      if(!brut) return;
+      const session = JSON.parse(brut);
+      if(session && session.expires_at > Date.now()){
+        const btnHeader = document.getElementById('btn-connexion-header');
+        const lienMenu = document.getElementById('lien-connexion-menu');
+        if(btnHeader) btnHeader.style.display = 'none';
+        if(lienMenu) lienMenu.style.display = 'none';
+      }
+    }catch(e){ /* pas de session valide, on laisse le bouton visible */ }
+  })();
+
   const btnOuvrir = document.getElementById('btn-ouvrir-menu');
   const btnFermer = document.getElementById('btn-fermer-menu');
   const menu = document.getElementById('menu-overlay');
