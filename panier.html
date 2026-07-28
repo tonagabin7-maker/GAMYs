@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>G∆MYs Academy — Mon panier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<script>
+  // Vérifie la session AVANT l'affichage de la page, pour éviter le flash du bouton "Connexion"
+  (function(){
+    try{
+      const brut = localStorage.getItem('gamys_session');
+      if(!brut) return;
+      const session = JSON.parse(brut);
+      if(session && session.expires_at > Date.now()){
+        document.documentElement.classList.add('connecte');
+      }
+    }catch(e){}
+  })();
+</script>
+<style>
+  :root{
+    --rouge: #C81E2B;
+    --rouge-sombre: #7A0F1A;
+    --noir: #111111;
+    --fond: #F7F5F0;
+    --carte: #FFFFFF;
+    --texte: #171717;
+    --texte-clair: #6b6862;
+  }
+  html{ font-size: 14px; }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{ background: var(--fond); color: var(--texte); font-family:'Inter',sans-serif; line-height:1.5; }
+  a{ color:inherit; text-decoration:none; }
+  button{ font-family: inherit; }
+
+  header{
+    display:flex; justify-content:space-between; align-items:center;
+    padding: 14px 6%; background: #fff; position: sticky; top:0; z-index: 30;
+    border-bottom: 1px solid rgba(17,17,17,0.08);
+  }
+  .logo{ font-family:'Archivo Black', sans-serif; font-size: 1.05rem; color: var(--texte); }
+  .logo span{ color: var(--rouge); }
+  .header-droite{ display:flex; align-items:center; gap: 12px; }
+  .btn-connexion{
+    font-size: 0.78rem; font-weight:700; color: #fff;
+    background: var(--rouge); padding: 9px 20px; border-radius: 999px;
+    transition: background .2s; white-space: nowrap;
+  }
+  .btn-connexion:hover{ background: var(--rouge-sombre); }
+  .btn-menu{
+    width: 38px; height: 38px; border-radius: 10px;
+    border: 1px solid rgba(17,17,17,0.15); background: #fff;
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+  }
+  .btn-menu span, .btn-menu span::before, .btn-menu span::after{
+    content:""; display:block; width: 16px; height: 2px; background: var(--texte); position:relative;
+  }
+  .btn-menu span::before{ position:absolute; top:-5px; }
+  .btn-menu span::after{ position:absolute; top:5px; }
+  html.connecte #btn-connexion-header,
+  html.connecte #lien-connexion-menu{ display:none !important; }
+
+  .menu-overlay{
+    position: fixed; inset:0; background: #fff; z-index: 40;
+    display:none; flex-direction:column; padding: 14px 6% 30px; overflow-y:auto;
+  }
+  .menu-overlay.ouvert{ display:flex; }
+  .menu-top{ display:flex; justify-content:space-between; align-items:center; margin-bottom: 26px; }
+  .btn-fermer{
+    width: 38px; height: 38px; border-radius: 10px;
+    border: 1px solid rgba(17,17,17,0.15); background:#fff;
+    display:flex; align-items:center; justify-content:center; font-size: 1.1rem; cursor:pointer;
+  }
+  .menu-liens{ list-style:none; display:flex; flex-direction:column; gap: 22px; }
+  .menu-liens a{ font-size: 1.05rem; font-weight:700; color: var(--texte); }
+  .menu-liens a:hover{ color: var(--rouge); }
+
+  main{ max-width: 640px; margin: 0 auto; padding: 40px 6% 110px; }
+  h1{ font-family:'Archivo Black', sans-serif; font-size: 1.3rem; margin-bottom: 6px; }
+  .sous-titre{ color: var(--texte-clair); font-size: 0.82rem; margin-bottom: 26px; }
+
+  .vide{
+    background: var(--carte); border: 1px solid rgba(17,17,17,0.08);
+    border-radius: 20px; padding: 40px 24px; text-align:center;
+  }
+  .vide p{ color: var(--texte-clair); font-size: 0.9rem; margin-bottom: 18px; }
+  .vide a{
+    display:inline-block; background: var(--rouge); color:#fff; font-weight:700;
+    font-size: 0.85rem; padding: 12px 24px; border-radius: 999px;
+  }
+
+  .ligne-panier{
+    background: var(--carte); border: 1px solid rgba(17,17,17,0.08);
+    border-radius: 16px; padding: 14px; margin-bottom: 14px;
+    display:flex; gap: 14px; align-items:center;
+  }
+  .ligne-panier .img-wrap{
+    width: 84px; height: 64px; border-radius: 10px; overflow:hidden;
+    background: var(--noir); flex-shrink:0;
+  }
+  .ligne-panier .img-wrap img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .ligne-panier .infos{ flex:1; min-width:0; }
+  .ligne-panier h3{ font-size: 0.92rem; margin-bottom: 4px; }
+  .ligne-panier .prix{ font-family:'IBM Plex Mono', monospace; font-size: 0.82rem; color: var(--texte-clair); }
+  .ligne-panier .btn-retirer{
+    background:none; border:none; color: var(--rouge); font-weight:700;
+    font-size: 0.76rem; text-decoration:underline; cursor:pointer; white-space:nowrap;
+  }
+
+  .recap-total{
+    display:flex; justify-content:space-between; align-items:center;
+    background: var(--carte); border: 1px solid rgba(17,17,17,0.08);
+    border-radius: 12px; padding: 16px 18px; margin: 18px 0 20px;
+    font-family:'IBM Plex Mono', monospace; font-size: 0.95rem; font-weight:700;
+  }
+  .recap-total span:last-child{ color: var(--rouge); }
+
+  .btn-principal{
+    width:100%; background: var(--rouge); color:#fff;
+    font-weight:700; font-size: 0.95rem;
+    padding: 15px; border:none; border-radius: 999px; cursor:pointer;
+    transition: background .2s; display:block; text-align:center;
+  }
+  .btn-principal:hover{ background: var(--rouge-sombre); }
+
+  footer{ text-align:center; padding: 22px 6%; background: var(--noir); color: rgba(255,255,255,0.5); font-size: 0.74rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">G<span>∆</span>MYs <span>ACADEMY</span></a>
+  <div class="header-droite">
+    <a href="inscription.html" class="btn-connexion" id="btn-connexion-header">Connexion</a>
+    <button class="btn-menu" id="btn-ouvrir-menu" aria-label="Menu"><span></span></button>
+  </div>
+</header>
+
+<div class="menu-overlay" id="menu-overlay">
+  <div class="menu-top">
+    <a href="index.html" class="logo">G<span>∆</span>MYs <span>ACADEMY</span></a>
+    <button class="btn-fermer" id="btn-fermer-menu" aria-label="Fermer">✕</button>
+  </div>
+  <ul class="menu-liens">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="formations.html">Formations</a></li>
+    <li><a href="inscription.html">Mon espace</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li id="lien-connexion-menu"><a href="inscription.html">Connexion</a></li>
+  </ul>
+</div>
+
+<main>
+  <h1>Ton panier</h1>
+  <p class="sous-titre">Les formations que tu as mises de côté, prêtes à être payées.</p>
+
+  <div id="contenu-panier"></div>
+</main>
+
+<footer>© 2026 G∆MYs Academy — Cotonou, Bénin</footer>
+
+<script src="formations-data.js"></script>
+<script>
+  const btnOuvrir = document.getElementById('btn-ouvrir-menu');
+  const btnFermer = document.getElementById('btn-fermer-menu');
+  const menu = document.getElementById('menu-overlay');
+  btnOuvrir.addEventListener('click', () => menu.classList.add('ouvert'));
+  btnFermer.addEventListener('click', () => menu.classList.remove('ouvert'));
+
+  function chargerPanier(){
+    try{
+      const brut = localStorage.getItem('gamys_panier');
+      return brut ? JSON.parse(brut) : [];
+    }catch(e){ return []; }
+  }
+  function sauvegarderPanier(panier){
+    localStorage.setItem('gamys_panier', JSON.stringify(panier));
+  }
+
+  function afficherPanier(){
+    const panier = chargerPanier();
+    const conteneur = document.getElementById('contenu-panier');
+    conteneur.innerHTML = '';
+
+    if(panier.length === 0){
+      conteneur.innerHTML = `
+        <div class="vide">
+          <p>Aucune formation dans ton panier pour l'instant.</p>
+          <a href="formations.html">Voir les formations →</a>
+        </div>
+      `;
+      return;
+    }
+
+    let total = 0;
+    panier.forEach(function(id){
+      const f = FORMATIONS.find(x => x.id === id);
+      if(!f) return;
+      total += f.prix;
+      const ligne = document.createElement('div');
+      ligne.className = 'ligne-panier';
+      ligne.innerHTML = `
+        <div class="img-wrap">
+          <img src="${f.affiche}" alt="Affiche — ${f.titre}" onerror="this.src='https://placehold.co/200x150/111111/F7F5F0?text=Affiche'">
+        </div>
+        <div class="infos">
+          <h3>${f.titre}</h3>
+          <div class="prix">${f.prix.toLocaleString('fr-FR')} FCFA</div>
+        </div>
+        <button type="button" class="btn-retirer" data-id="${f.id}">Retirer</button>
+      `;
+      conteneur.appendChild(ligne);
+    });
+
+    const recap = document.createElement('div');
+    recap.className = 'recap-total';
+    recap.innerHTML = `<span>Total</span><span>${total.toLocaleString('fr-FR')} FCFA</span>`;
+    conteneur.appendChild(recap);
+
+    const btnPayer = document.createElement('a');
+    btnPayer.href = 'inscription.html?paiement=1';
+    btnPayer.className = 'btn-principal';
+    btnPayer.textContent = 'Passer au paiement';
+    conteneur.appendChild(btnPayer);
+
+    conteneur.querySelectorAll('.btn-retirer').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        const id = btn.dataset.id;
+        const panierActuel = chargerPanier();
+        const index = panierActuel.indexOf(id);
+        if(index !== -1){ panierActuel.splice(index, 1); }
+        sauvegarderPanier(panierActuel);
+        afficherPanier();
+      });
+    });
+  }
+
+  afficherPanier();
+</script>
+
+</body>
+</html>
