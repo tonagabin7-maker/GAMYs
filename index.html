@@ -348,7 +348,7 @@
 <body>
 
 <header>
-  <div class="logo">G<span>∆</span>MYs <span>ACADEMY</span></div>
+  <a href="index.html" class="logo">G<span>∆</span>MYs <span>ACADEMY</span></a>
   <div class="header-droite">
     <a href="inscription.html" class="btn-connexion" id="btn-connexion-header">Connexion</a>
     <button class="btn-menu" id="btn-ouvrir-menu" aria-label="Menu"><span></span></button>
@@ -358,7 +358,7 @@
 <!-- Menu plein écran, façon Blemama -->
 <div class="menu-overlay" id="menu-overlay">
   <div class="menu-top">
-    <div class="logo">G<span>∆</span>MYs <span>ACADEMY</span></div>
+    <a href="index.html" class="logo">G<span>∆</span>MYs <span>ACADEMY</span></a>
     <button class="btn-fermer" id="btn-fermer-menu" aria-label="Fermer">✕</button>
   </div>
   <div class="menu-recherche">🔍 Que veux-tu apprendre ?</div>
@@ -367,6 +367,7 @@
     <li><a href="formations.html">Formations</a></li>
     <li><a href="inscription.html">Mon espace</a></li>
     <li><a href="contact.html">Contact</a></li>
+    <li><a href="inscription.html">Mon panier <span id="panier-compteur" style="color:var(--rouge); font-weight:800;">(0)</span></a></li>
     <li id="lien-connexion-menu"><a href="inscription.html">Connexion</a></li>
   </ul>
   <a href="formations.html" class="menu-cta">Voir toutes les formations →</a>
@@ -448,6 +449,16 @@
   const menu = document.getElementById('menu-overlay');
   btnOuvrir.addEventListener('click', () => menu.classList.add('ouvert'));
   btnFermer.addEventListener('click', () => menu.classList.remove('ouvert'));
+
+  // Affiche le nombre d'articles dans le panier partagé (rempli depuis formations.html)
+  (function(){
+    try{
+      const brut = localStorage.getItem('gamys_panier');
+      const panier = brut ? JSON.parse(brut) : [];
+      const compteur = document.getElementById('panier-compteur');
+      if(compteur) compteur.textContent = '(' + panier.length + ')';
+    }catch(e){}
+  })();
 
   // Aperçu du catalogue (2 premières formations) — généré depuis formations-data.js
   const conteneur = document.getElementById('apercu-formations');

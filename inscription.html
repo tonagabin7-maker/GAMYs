@@ -203,13 +203,13 @@
 <body>
 
 <header>
-  <div class="logo">G<span>∆</span>MYs <span>ACADEMY</span></div>
+  <a href="index.html" class="logo">G<span>∆</span>MYs <span>ACADEMY</span></a>
   <button class="btn-menu" id="btn-ouvrir-menu" aria-label="Menu"><span></span></button>
 </header>
 
 <div class="menu-overlay" id="menu-overlay">
   <div class="menu-top">
-    <div class="logo">G<span>∆</span>MYs <span>ACADEMY</span></div>
+    <a href="index.html" class="logo">G<span>∆</span>MYs <span>ACADEMY</span></a>
     <button class="btn-fermer" id="btn-fermer-menu" aria-label="Fermer">✕</button>
   </div>
   <ul class="menu-liens">
@@ -217,6 +217,7 @@
     <li><a href="formations.html">Formations</a></li>
     <li><a href="inscription.html">Mon espace</a></li>
     <li><a href="contact.html">Contact</a></li>
+    <li><a href="inscription.html">Mon panier <span id="panier-compteur-menu" style="color:var(--rouge); font-weight:800;">(0)</span></a></li>
   </ul>
 </div>
 
@@ -658,6 +659,10 @@
     localStorage.setItem('gamys_panier', JSON.stringify(panier));
   }
   let panier = chargerPanierPartage();
+  (function(){
+    const compteurMenu = document.getElementById('panier-compteur-menu');
+    if(compteurMenu) compteurMenu.textContent = '(' + panier.length + ')';
+  })();
 
   function totalPanier(){
     return panier.reduce(function(somme, id){
@@ -670,6 +675,8 @@
     document.getElementById('panier-nombre').textContent = panier.length;
     document.getElementById('panier-total').textContent = totalPanier().toLocaleString('fr-FR') + " FCFA";
     barrePanier.classList.toggle('visible', panier.length > 0 && etape2.style.display !== 'none');
+    const compteurMenu = document.getElementById('panier-compteur-menu');
+    if(compteurMenu) compteurMenu.textContent = '(' + panier.length + ')';
   }
 
   function afficherCatalogue(){
