@@ -138,6 +138,10 @@
     text-align:center; letter-spacing: 0.5em; font-size: 1.3rem;
     font-family:'IBM Plex Mono', monospace; font-weight:700;
   }
+  .compte-rebours{
+    text-align:center; color: var(--texte-clair); font-size: 0.78rem;
+    margin-top: 6px;
+  }
 
   #etape-1b, #etape-2, #etape-3{ display:none; }
 
@@ -301,6 +305,7 @@
         </div>
         <button type="submit" class="btn-principal">Confirmer et créer mon compte</button>
         <button type="button" class="btn-secondaire" id="btn-renvoyer-code">Renvoyer le code</button>
+        <div class="compte-rebours" id="compte-rebours"></div>
       </form>
       <div class="message" id="message-1b"></div>
     </div>
@@ -354,12 +359,10 @@
   const KKIAPAY_SANDBOX = true; // passe à false pour les vrais paiements
 
   // ⚠️ 2. Identifiants EmailJS (emailjs.com)
-  const EMAILJS_PUBLIC_KEY = "TA_CLE_PUBLIQUE_EMAILJS";
-  const EMAILJS_SERVICE_ID = "TON_SERVICE_ID_EMAILJS";
-  const EMAILJS_TEMPLATE_ID = "TON_TEMPLATE_ID_EMAILJS";          // reçu de paiement
-  const EMAILJS_TEMPLATE_CODE = "TON_TEMPLATE_CODE_EMAILJS";      // ⚠️ NOUVEAU : crée un 2e template sur emailjs.com
-                                                                    // avec les variables {{to_email}} et {{code}}
-                                                                    // pour l'email "voici ton code de vérification"
+  const EMAILJS_PUBLIC_KEY = "YB18T7FRcudQvMJGK";
+  const EMAILJS_SERVICE_ID = "service_2an9swh";
+  const EMAILJS_TEMPLATE_ID = "TON_TEMPLATE_ID_EMAILJS";          // reçu de paiement (à créer plus tard)
+  const EMAILJS_TEMPLATE_CODE = "template_riatelj";                // code de vérification ✅
   emailjs.init(EMAILJS_PUBLIC_KEY);
 
   // Adresse de base de l'API Identity de CE site (fonctionne automatiquement une fois en ligne)
@@ -508,7 +511,34 @@
   // ===== ÉTAPE 1 → 1b : envoi du code =====
   let codeEnCours = null;
   let donneesEnAttente = null;
+  let minuteurRenvoi = null;
 
+  function demarrerDelaiRenvoi(){
+    const btn = document.getElementById('btn-renvoyer-code');
+    const zone = document.getElementById('compte-rebours');
+    let secondesRestantes = 60;
+    btn.disabled = true;
+    btn.style.opacity = '0.5';
+
+    if(minuteurRenvoi) clearInterval(minuteurRenvoi);
+    zone.textContent = "Tu pourras renvoyer le code dans " + secondesRestantes + "s";
+
+    minuteurRenvoi = setInterval(function(){
+      secondesRestantes -= 1;
+      if(secondesRestantes <= 0){
+        clearInterval(minuteurRenvoi);
+        zone.textContent = '';
+        btn.disabled = false;
+        btn.style.opacity = '1';
+      } else {
+        zone.textContent = "Tu pourras renvoyer le code dans " + secondesRestantes + "s";
+      }
+    }, 1000);
+  }
+
+  document.getElementById('btn-renvoyer-code').addEventListener('click', function(){
+    if(donneesEnAttente){ envoyerCode(donneesEnAttente.email); }
+  });
   document.getElementById('form-creation').addEventListener('submit', function(e){
     e.preventDefault();
     const msg = document.getElementById('message-1');
@@ -546,11 +576,8 @@
     });
 
     allerA(1.5);
+    demarrerDelaiRenvoi();
   }
-
-  document.getElementById('btn-renvoyer-code').addEventListener('click', function(){
-    if(donneesEnAttente){ envoyerCode(donneesEnAttente.email); }
-  });
 
   document.getElementById('form-code').addEventListener('submit', function(e){
     e.preventDefault();
