@@ -15,23 +15,17 @@
     --carte: #FFFFFF;
     --texte: #171717;
     --texte-clair: #6b6862;
+    --vert-ok: #2E7D32;
   }
   html{ font-size: 14px; }
   *{ margin:0; padding:0; box-sizing:border-box; }
-  body{
-    background: var(--fond);
-    color: var(--texte);
-    font-family: 'Inter', sans-serif;
-    line-height: 1.5;
-  }
+  body{ background: var(--fond); color: var(--texte); font-family:'Inter',sans-serif; line-height:1.5; }
   a{ color:inherit; text-decoration:none; }
   button{ font-family: inherit; }
 
   header{
     display:flex; justify-content:space-between; align-items:center;
-    padding: 14px 6%;
-    background: #fff;
-    position: sticky; top:0; z-index: 30;
+    padding: 14px 6%; background: #fff; position: sticky; top:0; z-index: 30;
     border-bottom: 1px solid rgba(17,17,17,0.08);
   }
   .logo{ font-family:'Archivo Black', sans-serif; font-size: 1.05rem; color: var(--texte); }
@@ -65,15 +59,13 @@
   main{ max-width: 520px; margin: 0 auto; padding: 40px 6% 110px; }
 
   .etapes-nav{
-    display:flex; align-items:center; gap: 6px;
-    margin-bottom: 26px;
+    display:flex; align-items:center; gap: 6px; margin-bottom: 26px;
     font-family:'IBM Plex Mono', monospace; font-size: 0.68rem;
   }
   .etapes-nav .pastille{
     width: 24px; height: 24px; border-radius: 50%;
     display:flex; align-items:center; justify-content:center;
-    background: rgba(17,17,17,0.08); color: var(--texte-clair);
-    flex-shrink:0;
+    background: rgba(17,17,17,0.08); color: var(--texte-clair); flex-shrink:0;
   }
   .etapes-nav .pastille.active{ background: var(--rouge); color:#fff; }
   .etapes-nav .trait{ flex:1; height:1px; background: rgba(17,17,17,0.15); min-width: 8px; }
@@ -84,17 +76,22 @@
   .sous-titre{ color: var(--texte-clair); font-size: 0.82rem; margin-bottom: 24px; }
 
   .carte-form{
-    background: var(--carte);
-    border: 1px solid rgba(17,17,17,0.08);
-    border-radius: 20px;
-    padding: 24px 20px;
-    box-shadow: 0 2px 14px rgba(17,17,17,0.05);
+    background: var(--carte); border: 1px solid rgba(17,17,17,0.08);
+    border-radius: 20px; padding: 24px 20px; box-shadow: 0 2px 14px rgba(17,17,17,0.05);
   }
 
-  .champ{ margin-bottom: 18px; }
+  /* Onglets Connexion / Créer un compte */
+  .onglets-auth{ display:flex; gap:8px; margin-bottom: 18px; }
+  .onglet-auth{
+    flex:1; text-align:center; padding: 10px; border-radius: 999px;
+    font-size: 0.82rem; font-weight:700; cursor:pointer;
+    background: var(--fond); color: var(--texte-clair);
+  }
+  .onglet-auth.actif{ background: var(--noir); color:#fff; }
+
+  .champ{ margin-bottom: 16px; }
   .champ label{
-    display:block;
-    font-family:'IBM Plex Mono', monospace;
+    display:block; font-family:'IBM Plex Mono', monospace;
     font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em;
     color: var(--texte-clair); margin-bottom: 8px;
   }
@@ -106,6 +103,20 @@
     transition: border-color .2s;
   }
   .champ input:focus{ border-color: var(--rouge); }
+
+  .checklist-mdp{ margin: -6px 0 16px; display:flex; flex-direction:column; gap: 5px; }
+  .checklist-mdp div{
+    font-size: 0.74rem; color: var(--texte-clair);
+    display:flex; align-items:center; gap: 7px;
+  }
+  .checklist-mdp .puce{
+    width: 14px; height:14px; border-radius:50%;
+    border: 1.5px solid rgba(17,17,17,0.2);
+    display:flex; align-items:center; justify-content:center;
+    font-size: 0.55rem; flex-shrink:0;
+  }
+  .checklist-mdp div.ok{ color: var(--vert-ok); }
+  .checklist-mdp div.ok .puce{ background: var(--vert-ok); border-color: var(--vert-ok); color:#fff; }
 
   .btn-principal{
     width:100%; background: var(--rouge); color:#fff;
@@ -123,34 +134,21 @@
     text-decoration: underline; margin-top: 6px;
   }
 
-  .note-compte{
-    text-align:center; color: var(--texte-clair);
-    font-size: 0.78rem; margin-top: 16px;
+  .champ-code input{
+    text-align:center; letter-spacing: 0.5em; font-size: 1.3rem;
+    font-family:'IBM Plex Mono', monospace; font-weight:700;
   }
 
-  #etape-2, #etape-3{ display:none; }
+  #etape-1b, #etape-2, #etape-3{ display:none; }
 
   .bienvenue{
-    background: rgba(200,30,43,0.06);
-    border: 1px solid rgba(200,30,43,0.2);
-    border-radius: 12px;
-    padding: 12px 14px;
-    font-size: 0.82rem;
-    margin-bottom: 18px;
+    background: rgba(200,30,43,0.06); border: 1px solid rgba(200,30,43,0.2);
+    border-radius: 12px; padding: 12px 14px; font-size: 0.82rem; margin-bottom: 18px;
     display:flex; justify-content:space-between; align-items:center; gap:10px;
   }
-  .bienvenue button{
-    background:none; border:none; color: var(--rouge);
-    font-size: 0.75rem; font-weight:700; text-decoration:underline; cursor:pointer;
-  }
+  .bienvenue button{ background:none; border:none; color: var(--rouge); font-size: 0.75rem; font-weight:700; text-decoration:underline; cursor:pointer; }
 
-  .cat-carte{
-    background: var(--carte);
-    border: 1px solid rgba(17,17,17,0.08);
-    border-radius: 16px;
-    overflow:hidden;
-    margin-bottom: 16px;
-  }
+  .cat-carte{ background: var(--carte); border: 1px solid rgba(17,17,17,0.08); border-radius: 16px; overflow:hidden; margin-bottom: 16px; }
   .cat-carte .img-wrap{ aspect-ratio: 16/9; background: var(--noir); }
   .cat-carte .img-wrap img{ width:100%; height:100%; object-fit:cover; display:block; }
   .cat-carte .corps{ padding: 14px 16px 16px; }
@@ -160,68 +158,42 @@
   .cat-carte .prix{ font-family:'IBM Plex Mono', monospace; font-weight:700; font-size: 0.9rem; }
   .cat-carte .btn-panier{
     background: var(--noir); color:#fff; font-weight:700; font-size: 0.76rem;
-    padding: 8px 16px; border-radius: 999px; border:none; cursor:pointer;
-    transition: background .2s;
+    padding: 8px 16px; border-radius: 999px; border:none; cursor:pointer; transition: background .2s;
   }
   .cat-carte .btn-panier.dans-panier{ background: var(--rouge); }
 
-  /* Barre panier fixe en bas */
   .barre-panier{
-    position: fixed; left:0; right:0; bottom:0;
-    background: var(--noir); color:#fff;
-    padding: 14px 6%;
-    display:flex; justify-content:space-between; align-items:center;
-    gap: 12px;
-    z-index: 20;
-    transform: translateY(100%);
-    transition: transform .25s ease;
+    position: fixed; left:0; right:0; bottom:0; background: var(--noir); color:#fff;
+    padding: 14px 6%; display:flex; justify-content:space-between; align-items:center; gap: 12px;
+    z-index: 20; transform: translateY(100%); transition: transform .25s ease;
   }
   .barre-panier.visible{ transform: translateY(0); }
   .barre-panier .info{ font-size: 0.82rem; }
   .barre-panier .info b{ font-family:'IBM Plex Mono', monospace; color: var(--rouge); }
   .barre-panier button{
     background: var(--rouge); color:#fff; font-weight:700; font-size: 0.8rem;
-    padding: 10px 18px; border-radius: 999px; border:none; cursor:pointer;
-    white-space: nowrap;
+    padding: 10px 18px; border-radius: 999px; border:none; cursor:pointer; white-space: nowrap;
   }
 
-  .panier-liste{ margin-bottom: 18px; }
   .panier-ligne{
     display:flex; justify-content:space-between; align-items:center;
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(17,17,17,0.08);
-    font-size: 0.85rem;
+    padding: 10px 0; border-bottom: 1px solid rgba(17,17,17,0.08); font-size: 0.85rem;
   }
   .panier-ligne .prix-ligne{ font-family:'IBM Plex Mono', monospace; color: var(--texte-clair); }
 
   .recap-total{
     display:flex; justify-content:space-between; align-items:center;
-    background: var(--fond);
-    border-radius: 10px;
-    padding: 14px 16px;
-    margin-bottom: 22px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size: 0.95rem;
-    font-weight:700;
+    background: var(--fond); border-radius: 10px; padding: 14px 16px; margin: 18px 0 22px;
+    font-family:'IBM Plex Mono', monospace; font-size: 0.95rem; font-weight:700;
   }
   .recap-total span:last-child{ color: var(--rouge); }
 
   .message{ margin-top: 18px; padding: 14px 16px; border-radius: 10px; font-size: 0.85rem; display:none; }
-  .message.ok{
-    display:block; background: rgba(46,125,50,0.08);
-    border: 1px solid rgba(46,125,50,0.35); color: #1e5f22;
-  }
+  .message.ok{ display:block; background: rgba(46,125,50,0.08); border: 1px solid rgba(46,125,50,0.35); color: #1e5f22; }
   .message.ok a{ color: var(--rouge); font-weight:700; text-decoration: underline; display:block; margin-top:4px; }
-  .message.err{
-    display:block; background: rgba(200,30,43,0.08);
-    border: 1px solid rgba(200,30,43,0.35); color: var(--rouge-sombre);
-  }
+  .message.err{ display:block; background: rgba(200,30,43,0.08); border: 1px solid rgba(200,30,43,0.35); color: var(--rouge-sombre); }
 
-  footer{
-    text-align:center; padding: 22px 6%;
-    background: var(--noir); color: rgba(255,255,255,0.5);
-    font-size: 0.74rem;
-  }
+  footer{ text-align:center; padding: 22px 6%; background: var(--noir); color: rgba(255,255,255,0.5); font-size: 0.74rem; }
 </style>
 </head>
 <body>
@@ -256,30 +228,81 @@
     <span class="label" id="label-3">Paiement</span>
   </div>
 
-  <!-- ============ ÉTAPE 1 : COMPTE (Netlify Identity) ============ -->
+  <!-- ============ ÉTAPE 1 : COMPTE ============ -->
   <div id="etape-1">
     <h1>Ton espace personnel</h1>
-    <p class="sous-titre">Connecte-toi avec ton email et ton mot de passe, ou crée ton compte. Tu pourras revenir accéder à ton espace n'importe quand.</p>
+    <p class="sous-titre">Crée ton compte ou connecte-toi. Tu pourras revenir accéder à ton espace n'importe quand avec ton email et ton mot de passe.</p>
 
-    <div class="carte-form" id="carte-connexion">
-      <button type="button" class="btn-principal" id="btn-ouvrir-identity">Se connecter / Créer un compte</button>
-      <div class="note-compte">Ton compte est géré de façon sécurisée par Netlify.</div>
-    </div>
+    <div class="carte-form">
+      <div class="onglets-auth">
+        <div class="onglet-auth actif" data-onglet="creer">Créer un compte</div>
+        <div class="onglet-auth" data-onglet="connexion">Se connecter</div>
+      </div>
 
-    <!-- Formulaire "compléter le profil", affiché seulement après une inscription -->
-    <div class="carte-form" id="carte-profil" style="display:none; margin-top:16px;">
-      <p class="sous-titre" style="margin-bottom:16px;">Encore une étape : dis-nous qui tu es.</p>
-      <form id="form-profil">
+      <!-- Formulaire CRÉATION DE COMPTE -->
+      <form id="form-creation">
         <div class="champ">
-          <label for="prenom">Prénom</label>
-          <input type="text" id="prenom" required placeholder="Ex : Gabin">
+          <label for="c-prenom">Prénom</label>
+          <input type="text" id="c-prenom" required placeholder="Ex : Gabin">
         </div>
         <div class="champ">
-          <label for="nom">Nom</label>
-          <input type="text" id="nom" required placeholder="Ex : Ahouansou">
+          <label for="c-nom">Nom</label>
+          <input type="text" id="c-nom" required placeholder="Ex : Ahouansou">
         </div>
-        <button type="submit" class="btn-principal">Continuer</button>
+        <div class="champ">
+          <label for="c-email">Adresse Gmail</label>
+          <input type="email" id="c-email" required placeholder="toi@gmail.com">
+        </div>
+        <div class="champ">
+          <label for="c-mdp">Mot de passe</label>
+          <input type="password" id="c-mdp" required placeholder="••••••••">
+        </div>
+        <div class="checklist-mdp">
+          <div id="regle-longueur"><span class="puce">✓</span> 8 caractères minimum</div>
+          <div id="regle-maj"><span class="puce">✓</span> Une majuscule</div>
+          <div id="regle-min"><span class="puce">✓</span> Une minuscule</div>
+          <div id="regle-chiffre"><span class="puce">✓</span> Un chiffre</div>
+          <div id="regle-special"><span class="puce">✓</span> Un caractère spécial (ex: ! @ # ?)</div>
+        </div>
+        <div class="champ">
+          <label for="c-mdp2">Confirmer le mot de passe</label>
+          <input type="password" id="c-mdp2" required placeholder="••••••••">
+        </div>
+        <button type="submit" class="btn-principal" id="btn-envoyer-code">Recevoir mon code de vérification</button>
       </form>
+
+      <!-- Formulaire CONNEXION (compte existant) -->
+      <form id="form-connexion" style="display:none;">
+        <div class="champ">
+          <label for="x-email">Adresse Gmail</label>
+          <input type="email" id="x-email" required placeholder="toi@gmail.com">
+        </div>
+        <div class="champ">
+          <label for="x-mdp">Mot de passe</label>
+          <input type="password" id="x-mdp" required placeholder="••••••••">
+        </div>
+        <button type="submit" class="btn-principal" id="btn-connexion">Se connecter</button>
+      </form>
+
+      <div class="message" id="message-1"></div>
+    </div>
+  </div>
+
+  <!-- ============ ÉTAPE 1b : CODE DE VÉRIFICATION ============ -->
+  <div id="etape-1b">
+    <h1>Vérifie ton email</h1>
+    <p class="sous-titre">On a envoyé un code à 6 chiffres à <b id="email-code-envoye"></b>. Entre-le ci-dessous.</p>
+
+    <div class="carte-form">
+      <form id="form-code">
+        <div class="champ champ-code">
+          <label for="code-saisi">Code reçu par email</label>
+          <input type="text" id="code-saisi" inputmode="numeric" maxlength="6" required placeholder="000000">
+        </div>
+        <button type="submit" class="btn-principal">Confirmer et créer mon compte</button>
+        <button type="button" class="btn-secondaire" id="btn-renvoyer-code">Renvoyer le code</button>
+      </form>
+      <div class="message" id="message-1b"></div>
     </div>
   </div>
 
@@ -296,52 +319,51 @@
     <div id="catalogue-etape2"></div>
   </div>
 
-  <!-- ============ ÉTAPE 3 : PAIEMENT DU PANIER ============ -->
+  <!-- ============ ÉTAPE 3 : PAIEMENT ============ -->
   <div id="etape-3">
     <h1>Finalise ton paiement</h1>
     <p class="sous-titre">Vérifie ton panier avant de payer.</p>
 
     <div class="carte-form">
-      <div class="panier-liste" id="panier-liste-etape3"></div>
-
+      <div id="panier-liste-etape3"></div>
       <div class="recap-total">
         <span>Total à payer</span>
         <span id="recap-total-montant">—</span>
       </div>
-
       <button type="button" class="btn-principal" id="btn-payer">Payer avec Kkiapay</button>
       <button type="button" class="btn-secondaire" id="btn-retour-catalogue">← Modifier mon panier</button>
-
-      <div class="message" id="message"></div>
+      <div class="message" id="message-3"></div>
     </div>
   </div>
 </main>
 
-<!-- Barre panier flottante (visible à l'étape 2 uniquement) -->
 <div class="barre-panier" id="barre-panier">
   <div class="info"><b id="panier-nombre">0</b> formation(s) — <span id="panier-total">0 FCFA</span></div>
   <button type="button" id="btn-voir-panier">Voir mon panier →</button>
 </div>
 
-<footer>
-  © 2026 G∆MYs Academy — Cotonou, Bénin
-</footer>
+<footer>© 2026 G∆MYs Academy — Cotonou, Bénin</footer>
 
 <script src="formations-data.js"></script>
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <script src="https://cdn.kkiapay.me/k.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
 <script>
-  // ⚠️ 1. Remplace cette clé par TA clé publique Kkiapay (app.kkiapay.me/dashboard)
+  // ⚠️ 1. Clé publique Kkiapay (app.kkiapay.me/dashboard)
   const KKIAPAY_CLE_PUBLIQUE = "TA_CLE_PUBLIQUE_KKIAPAY";
-  const KKIAPAY_SANDBOX = true; // passe à false quand tu es prêt à recevoir de vrais paiements
+  const KKIAPAY_SANDBOX = true; // passe à false pour les vrais paiements
 
-  // ⚠️ 2. Remplace ces 3 valeurs par celles de ton compte EmailJS (emailjs.com, gratuit)
+  // ⚠️ 2. Identifiants EmailJS (emailjs.com)
   const EMAILJS_PUBLIC_KEY = "TA_CLE_PUBLIQUE_EMAILJS";
   const EMAILJS_SERVICE_ID = "TON_SERVICE_ID_EMAILJS";
-  const EMAILJS_TEMPLATE_ID = "TON_TEMPLATE_ID_EMAILJS";
+  const EMAILJS_TEMPLATE_ID = "TON_TEMPLATE_ID_EMAILJS";          // reçu de paiement
+  const EMAILJS_TEMPLATE_CODE = "TON_TEMPLATE_CODE_EMAILJS";      // ⚠️ NOUVEAU : crée un 2e template sur emailjs.com
+                                                                    // avec les variables {{to_email}} et {{code}}
+                                                                    // pour l'email "voici ton code de vérification"
   emailjs.init(EMAILJS_PUBLIC_KEY);
+
+  // Adresse de base de l'API Identity de CE site (fonctionne automatiquement une fois en ligne)
+  const IDENTITY_BASE = window.location.origin + "/.netlify/identity";
 
   // ===== Menu hamburger =====
   document.getElementById('btn-ouvrir-menu').addEventListener('click', () => document.getElementById('menu-overlay').classList.add('ouvert'));
@@ -349,6 +371,7 @@
 
   // ===== Navigation entre étapes =====
   const etape1 = document.getElementById('etape-1');
+  const etape1b = document.getElementById('etape-1b');
   const etape2 = document.getElementById('etape-2');
   const etape3 = document.getElementById('etape-3');
   const barrePanier = document.getElementById('barre-panier');
@@ -357,80 +380,249 @@
 
   function allerA(numero){
     etape1.style.display = numero === 1 ? 'block' : 'none';
+    etape1b.style.display = numero === 1.5 ? 'block' : 'none';
     etape2.style.display = numero === 2 ? 'block' : 'none';
     etape3.style.display = numero === 3 ? 'block' : 'none';
+    const nAffiche = numero === 1.5 ? 1 : numero;
     pastilles.forEach(function(p, i){
       const n = i + 1;
-      p.classList.toggle('active', n === numero);
-      p.textContent = n < numero ? '✓' : n;
+      p.classList.toggle('active', n === nAffiche);
+      p.textContent = n < nAffiche ? '✓' : n;
     });
-    labels.forEach(function(l, i){ l.classList.toggle('active', (i + 1) === numero); });
+    labels.forEach(function(l, i){ l.classList.toggle('active', (i + 1) === nAffiche); });
     barrePanier.classList.toggle('visible', numero === 2 && panier.length > 0);
   }
 
-  // ===== Netlify Identity : connexion / inscription persistante =====
-  netlifyIdentity.init();
-
-  document.getElementById('btn-ouvrir-identity').addEventListener('click', function(){
-    netlifyIdentity.open();
-  });
-
-  netlifyIdentity.on('login', function(user){
-    netlifyIdentity.close();
-    verifierProfilPuisContinuer(user);
-  });
-
-  netlifyIdentity.on('signup', function(user){
-    // Après inscription, Netlify peut exiger une confirmation par email selon tes réglages
-    verifierProfilPuisContinuer(user);
-  });
-
-  netlifyIdentity.on('init', function(user){
-    if(user){ verifierProfilPuisContinuer(user); }
-  });
-
-  function verifierProfilPuisContinuer(user){
-    const meta = user.user_metadata || {};
-    if(meta.prenom && meta.nom){
-      document.getElementById('carte-connexion').style.display = 'none';
-      document.getElementById('carte-profil').style.display = 'none';
-      afficherBienvenue(meta.prenom);
-      afficherCatalogue();
-      allerA(2);
-    } else {
-      document.getElementById('carte-connexion').style.display = 'none';
-      document.getElementById('carte-profil').style.display = 'block';
-    }
-  }
-
-  document.getElementById('form-profil').addEventListener('submit', function(e){
-    e.preventDefault();
-    const prenom = document.getElementById('prenom').value.trim();
-    const nom = document.getElementById('nom').value.trim();
-    if(!prenom || !nom) return;
-
-    const user = netlifyIdentity.currentUser();
-    user.update({ data: { prenom: prenom, nom: nom } }).then(function(){
-      afficherBienvenue(prenom);
-      afficherCatalogue();
-      allerA(2);
+  // ===== Onglets Créer un compte / Se connecter =====
+  document.querySelectorAll('.onglet-auth').forEach(function(onglet){
+    onglet.addEventListener('click', function(){
+      document.querySelectorAll('.onglet-auth').forEach(o => o.classList.remove('actif'));
+      onglet.classList.add('actif');
+      const estCreation = onglet.dataset.onglet === 'creer';
+      document.getElementById('form-creation').style.display = estCreation ? 'block' : 'none';
+      document.getElementById('form-connexion').style.display = estCreation ? 'none' : 'block';
+      document.getElementById('message-1').className = 'message';
     });
   });
 
+  // ===== Vérification en temps réel du mot de passe =====
+  const champMdp = document.getElementById('c-mdp');
+  const regles = {
+    longueur: { el: document.getElementById('regle-longueur'), test: v => v.length >= 8 },
+    maj: { el: document.getElementById('regle-maj'), test: v => /[A-Z]/.test(v) },
+    min: { el: document.getElementById('regle-min'), test: v => /[a-z]/.test(v) },
+    chiffre: { el: document.getElementById('regle-chiffre'), test: v => /[0-9]/.test(v) },
+    special: { el: document.getElementById('regle-special'), test: v => /[^A-Za-z0-9]/.test(v) }
+  };
+  function mdpValide(v){
+    return Object.values(regles).every(r => r.test(v));
+  }
+  champMdp.addEventListener('input', function(){
+    const v = champMdp.value;
+    Object.values(regles).forEach(function(r){ r.el.classList.toggle('ok', r.test(v)); });
+  });
+
+  // ===== Session (stockée localement pour rester connecté) =====
+  let session = null; // { access_token, refresh_token, expires_at, user: {email, user_metadata} }
+
+  function sauvegarderSession(){
+    localStorage.setItem('gamys_session', JSON.stringify(session));
+  }
+  function chargerSession(){
+    try{
+      const brut = localStorage.getItem('gamys_session');
+      if(!brut) return null;
+      return JSON.parse(brut);
+    }catch(e){ return null; }
+  }
+  function effacerSession(){
+    session = null;
+    localStorage.removeItem('gamys_session');
+  }
+
+  async function appelIdentity(chemin, options){
+    const reponse = await fetch(IDENTITY_BASE + chemin, options);
+    const donnees = await reponse.json().catch(() => ({}));
+    if(!reponse.ok){
+      const err = new Error(donnees.error_description || donnees.msg || 'Erreur');
+      err.data = donnees;
+      throw err;
+    }
+    return donnees;
+  }
+
+  async function connexionParMotDePasse(email, motDePasse){
+    const corps = new URLSearchParams();
+    corps.set('grant_type', 'password');
+    corps.set('username', email);
+    corps.set('password', motDePasse);
+    const jeton = await appelIdentity('/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: corps.toString()
+    });
+    const utilisateur = await appelIdentity('/user', {
+      headers: { 'Authorization': 'Bearer ' + jeton.access_token }
+    });
+    session = {
+      access_token: jeton.access_token,
+      refresh_token: jeton.refresh_token,
+      expires_at: Date.now() + (jeton.expires_in * 1000),
+      user: utilisateur
+    };
+    sauvegarderSession();
+  }
+
+  async function tenterReconnexionAutomatique(){
+    const s = chargerSession();
+    if(!s) return false;
+    if(s.expires_at > Date.now()){
+      session = s;
+      return true;
+    }
+    // Le jeton a expiré, on essaie de le rafraîchir silencieusement
+    try{
+      const corps = new URLSearchParams();
+      corps.set('grant_type', 'refresh_token');
+      corps.set('refresh_token', s.refresh_token);
+      const jeton = await appelIdentity('/token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: corps.toString()
+      });
+      const utilisateur = await appelIdentity('/user', { headers: { 'Authorization': 'Bearer ' + jeton.access_token } });
+      session = {
+        access_token: jeton.access_token,
+        refresh_token: jeton.refresh_token,
+        expires_at: Date.now() + (jeton.expires_in * 1000),
+        user: utilisateur
+      };
+      sauvegarderSession();
+      return true;
+    }catch(e){
+      effacerSession();
+      return false;
+    }
+  }
+
+  // ===== ÉTAPE 1 → 1b : envoi du code =====
+  let codeEnCours = null;
+  let donneesEnAttente = null;
+
+  document.getElementById('form-creation').addEventListener('submit', function(e){
+    e.preventDefault();
+    const msg = document.getElementById('message-1');
+    msg.className = 'message';
+
+    const prenom = document.getElementById('c-prenom').value.trim();
+    const nom = document.getElementById('c-nom').value.trim();
+    const email = document.getElementById('c-email').value.trim();
+    const mdp = document.getElementById('c-mdp').value;
+    const mdp2 = document.getElementById('c-mdp2').value;
+
+    if(!prenom || !nom || !email){
+      msg.className = 'message err'; msg.textContent = "Merci de remplir tous les champs."; return;
+    }
+    if(!mdpValide(mdp)){
+      msg.className = 'message err'; msg.textContent = "Le mot de passe ne respecte pas encore toutes les règles ci-dessus."; return;
+    }
+    if(mdp !== mdp2){
+      msg.className = 'message err'; msg.textContent = "Les deux mots de passe ne correspondent pas."; return;
+    }
+
+    donneesEnAttente = { prenom, nom, email, mdp };
+    envoyerCode(email);
+  });
+
+  function envoyerCode(email){
+    codeEnCours = String(Math.floor(100000 + Math.random() * 900000));
+    document.getElementById('email-code-envoye').textContent = email;
+    document.getElementById('code-saisi').value = '';
+    document.getElementById('message-1b').className = 'message';
+
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_CODE, {
+      to_email: email,
+      code: codeEnCours
+    });
+
+    allerA(1.5);
+  }
+
+  document.getElementById('btn-renvoyer-code').addEventListener('click', function(){
+    if(donneesEnAttente){ envoyerCode(donneesEnAttente.email); }
+  });
+
+  document.getElementById('form-code').addEventListener('submit', function(e){
+    e.preventDefault();
+    const saisi = document.getElementById('code-saisi').value.trim();
+    const msg = document.getElementById('message-1b');
+
+    if(saisi !== codeEnCours){
+      msg.className = 'message err'; msg.textContent = "Ce code est incorrect. Vérifie ton email et réessaie."; return;
+    }
+
+    creerLeCompte();
+  });
+
+  async function creerLeCompte(){
+    const msg = document.getElementById('message-1b');
+    const { prenom, nom, email, mdp } = donneesEnAttente;
+    try{
+      await appelIdentity('/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, password: mdp, data: { prenom: prenom, nom: nom } })
+      });
+      await connexionParMotDePasse(email, mdp);
+      demarrerEspacePersonnel();
+    }catch(err){
+      msg.className = 'message err';
+      msg.textContent = "Impossible de créer le compte : " + (err.message || 'erreur inconnue') + ".";
+    }
+  }
+
+  // ===== Connexion (compte existant) =====
+  document.getElementById('form-connexion').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const msg = document.getElementById('message-1');
+    msg.className = 'message';
+    const email = document.getElementById('x-email').value.trim();
+    const mdp = document.getElementById('x-mdp').value;
+    const btn = document.getElementById('btn-connexion');
+    btn.disabled = true; btn.textContent = "Connexion...";
+
+    try{
+      await connexionParMotDePasse(email, mdp);
+      demarrerEspacePersonnel();
+    }catch(err){
+      msg.className = 'message err';
+      msg.textContent = "Email ou mot de passe incorrect.";
+    }
+    btn.disabled = false; btn.textContent = "Se connecter";
+  });
+
   document.getElementById('btn-deconnexion').addEventListener('click', function(){
-    netlifyIdentity.logout();
+    effacerSession();
     panier = [];
-    document.getElementById('carte-connexion').style.display = 'block';
-    document.getElementById('carte-profil').style.display = 'none';
+    document.getElementById('form-creation').reset();
+    document.getElementById('form-connexion').reset();
     allerA(1);
   });
 
-  function afficherBienvenue(prenom){
-    document.getElementById('texte-bienvenue').textContent = "Connecté(e) en tant que " + prenom;
+  function demarrerEspacePersonnel(){
+    const meta = session.user.user_metadata || {};
+    document.getElementById('texte-bienvenue').textContent = "Connecté(e) en tant que " + (meta.prenom || session.user.email);
+    afficherCatalogue();
+    allerA(2);
   }
 
+  // Au chargement de la page : reconnexion automatique si une session valide existe déjà
+  tenterReconnexionAutomatique().then(function(ok){
+    if(ok){ demarrerEspacePersonnel(); }
+  });
+
   // ===== Panier =====
-  let panier = []; // tableau d'id de formations
+  let panier = [];
 
   function totalPanier(){
     return panier.reduce(function(somme, id){
@@ -469,18 +661,15 @@
       `;
       conteneur.appendChild(carte);
     });
-
     conteneur.querySelectorAll('.btn-panier').forEach(function(btn){
       btn.addEventListener('click', function(){
         const id = btn.dataset.id;
         const index = panier.indexOf(id);
-        if(index === -1){ panier.push(id); }
-        else{ panier.splice(index, 1); }
+        if(index === -1){ panier.push(id); } else { panier.splice(index, 1); }
         afficherCatalogue();
         majBarrePanier();
       });
     });
-
     majBarrePanier();
   }
 
@@ -489,7 +678,6 @@
     afficherRecapPaiement();
     allerA(3);
   });
-
   document.getElementById('btn-retour-catalogue').addEventListener('click', function(){
     afficherCatalogue();
     allerA(2);
@@ -506,25 +694,22 @@
       conteneur.appendChild(ligne);
     });
     document.getElementById('recap-total-montant').textContent = totalPanier().toLocaleString('fr-FR') + " FCFA";
-    document.getElementById('message').className = 'message';
-    document.getElementById('message').textContent = '';
+    document.getElementById('message-3').className = 'message';
+    document.getElementById('message-3').textContent = '';
   }
 
-  // ===== Paiement Kkiapay du panier entier =====
   document.getElementById('btn-payer').addEventListener('click', function(){
     const btn = this;
     btn.disabled = true;
     btn.textContent = "Ouverture du paiement...";
-
-    const user = netlifyIdentity.currentUser();
-    const meta = user.user_metadata || {};
+    const meta = session.user.user_metadata || {};
 
     openKkiapayWidget({
       amount: totalPanier(),
       key: KKIAPAY_CLE_PUBLIQUE,
       sandbox: KKIAPAY_SANDBOX,
       name: (meta.prenom || '') + " " + (meta.nom || ''),
-      email: user.email,
+      email: session.user.email,
       data: panier.join(',')
     });
 
@@ -532,17 +717,15 @@
     btn.disabled = false;
   });
 
-  // Appelé automatiquement quand Kkiapay confirme un paiement réussi
   addSuccessListener(function(response){
-    const message = document.getElementById('message');
-    const user = netlifyIdentity.currentUser();
-    const meta = user.user_metadata || {};
+    const message = document.getElementById('message-3');
+    const meta = session.user.user_metadata || {};
 
     const formationsAchetees = panier.map(id => FORMATIONS.find(x => x.id === id));
     const listeLiens = formationsAchetees.map(f => f.titre + " : " + f.lienDrive).join(" | ");
 
     emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-      to_email: user.email,
+      to_email: session.user.email,
       prenom: meta.prenom || '',
       nom: meta.nom || '',
       formations: formationsAchetees.map(f => f.titre).join(', '),
@@ -552,7 +735,7 @@
     });
 
     message.className = 'message ok';
-    let html = "Paiement réussi ! Ton reçu part à " + user.email + ". Accède directement à tes formations :";
+    let html = "Paiement réussi ! Ton reçu part à " + session.user.email + ". Accède directement à tes formations :";
     formationsAchetees.forEach(function(f){
       html += "<a href='" + f.lienDrive + "' target='_blank' rel='noopener'>→ " + f.titre + "</a>";
     });
